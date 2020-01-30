@@ -1,0 +1,51 @@
+###
+### Installs my environment
+###
+
+### Applications
+
+# stow
+rpm -qa | grep -qw stow || sudo zypper install -y stow 
+
+# htop
+rpm -qa | grep -qw htop || sudo zypper install -y htop
+
+# tmux
+rpm -qa | grep -qw tmux || sudo zypper install -y tmux
+
+# Rust
+rpm -qa | grep -qw rust || sudo zypper install -y rust
+
+# xclip
+rpm -qa | grep -qw xclip || sudo zypper install -y xclip
+
+# Nerd fonts - Fira code
+rpm -qa | grep -qw nerd-fonts-fira-code || sudo rpm -i https://download.opensuse.org/repositories/home:/Hentioe/openSUSE_Leap_15.1/x86_64/nerd-fonts-fira-code-2.0.0-lp151.2.1.x86_64.rpm
+
+# Starship prompt
+test -f /usr/local/bin/starship || sudo cp /bin/starship /usr/local/bin
+
+# Glow - MarkDown reader
+rpm -qa | grep -qw glow || sudo rpm -i https://github.com/charmbracelet/glow/releases/download/v0.2.0/glow_0.2.0_linux_amd64.rpm
+
+# kitty - terminal
+rpm -qa | grep -qw terminal || sudo rpm -i https://download.opensuse.org/repositories/openSUSE:/Factory/standard/x86_64/kitty-0.15.1-1.1.x86_64.rpm
+
+
+### Stowing .dot files
+
+# /home/$USER
+stow -vRt /home/$USER/ home
+
+# /home/$USER/.config
+stow -vRt /home/$USER/.config .config
+
+# /usr/local/bin
+sudo stow -v -R --ignore=starship -t /usr/local/bin/ bin
+
+# /etc
+sudo stow -vRt /etc/ etc
+
+# /usr
+sudo stow -vRt /usr/ usr
+ 
