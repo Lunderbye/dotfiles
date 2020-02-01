@@ -25,6 +25,7 @@ esac
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export HISTSIZE=-1
 export HISTFILESIZE=-1
+export EDITOR=/usr/bin/vim
 
 # Source .aliases if existing
 test -s ~/.aliases && . ~/.aliases || true
