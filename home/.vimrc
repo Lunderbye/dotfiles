@@ -7,6 +7,8 @@ set number			" Show line numbers
 set ruler			" Show file stats
 set encoding=utf-8		" Set encoding
 set hidden			" Allow hidden buffers
+set path+=**			" Fuzzy search
+set wildmenu			" Display all matching files when we tab complete
 
 syntax enable
 set t_Co=256
