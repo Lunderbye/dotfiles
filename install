@@ -23,7 +23,7 @@ rpm -qa | grep -qw xclip || sudo zypper install -y xclip
 rpm -qa | grep -qw nerd-fonts-fira-code || sudo rpm -i https://download.opensuse.org/repositories/home:/Hentioe/openSUSE_Leap_15.1/x86_64/nerd-fonts-fira-code-2.0.0-lp151.2.1.x86_64.rpm
 
 # Starship prompt
-test -f /usr/local/bin/starship || sudo cp /bin/starship /usr/local/bin
+test -f /usr/local/bin/starship || sudo cp bin/starship /usr/local/bin
 
 # Glow - MarkDown reader
 rpm -qa | grep -qw glow || sudo rpm -i https://github.com/charmbracelet/glow/releases/download/v0.2.0/glow_0.2.0_linux_amd64.rpm
