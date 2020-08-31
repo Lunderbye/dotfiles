@@ -30,8 +30,20 @@ export EDITOR=/usr/bin/vim
 # Source .aliases if existing
 test -s ~/.aliases && . ~/.aliases || true
 
+# Source .functions.sh if existing
+[[ -f "$HOME/.functions.sh" ]] && source ~/.functions.sh
+
 # Set GOPATH
-type go >/dev/null 2>&1 && export GOPATH=$(go env GOPATH)
+export PATH=~/.local/bin:"$PATH"
+type go >/dev/null 2>&1 && export GOPATH=$(go env GOPATH) && export PATH="$PATH":$GOPATH/bin
+
+# Make sure we only run one ssh-agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+fi
 
 # Install prompt from starship.rs
 eval "$(starship init bash)"

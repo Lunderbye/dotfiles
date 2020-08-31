@@ -1,9 +1,9 @@
 " -----------------------------------------------------------------------------
-" Name:         Gruvbox Material
-" Description:  Gruvbox with Material Palette
-" Author:       Sainnhepark <sainnhe@gmail.com>
-" Website:      https://github.com/gruvbox-material/vim
-" License:      MIT
+" Name:           Gruvbox Material
+" Description:    Gruvbox with Material Palette
+" Author:         sainnhe <sainnhe@gmail.com>
+" Website:        https://github.com/sainnhe/gruvbox-material
+" License:        MIT
 " -----------------------------------------------------------------------------
 
 " Initialization: {{{
@@ -12,695 +12,783 @@ if exists('syntax_on')
   syntax reset
 endif
 
-let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
-
 let g:colors_name = 'gruvbox-material'
-" }}}
-" Configuration: {{{
-let s:configuration = {}
-let s:configuration.background = get(g:, 'gruvbox_material_background', 'medium')
-let s:configuration.palette = get(g:, 'gruvbox_material_palette', 'material')
-let s:configuration.transparent_background = get(g:, 'gruvbox_material_transparent_background', 0)
-let s:configuration.disable_italic_comment = get(g:, 'gruvbox_material_disable_italic_comment', 0)
-let s:configuration.enable_bold = get(g:, 'gruvbox_material_enable_bold', 0)
-let s:configuration.enable_italic = get(g:, 'gruvbox_material_enable_italic', 0)
-let s:configuration.visual = get(g:, 'gruvbox_material_visual', 'grey background')
-let s:configuration.menu_selection_background = get(g:, 'gruvbox_material_menu_selection_background', 'grey')
-let s:configuration.current_word = get(g:, 'gruvbox_material_current_word', get(g:, 'gruvbox_material_transparent_background', 0) == 0 ? 'grey background' : 'bold')
-" }}}
-" Palette: {{{
-if type(s:configuration.palette) == 4
-  let s:palette = s:configuration.palette
-else
-  if s:configuration.palette ==# 'material'
-    if s:configuration.background ==# 'hard'  " {{{
-      if &background ==# 'dark'
-        let s:palette = {
-              \ 'bg0':        ['#1d2021',   '234',  'Black'],
-              \ 'bg1':        ['#242525',   '235',  'DarkGrey'],
-              \ 'bg2':        ['#282828',   '235',  'DarkGrey'],
-              \ 'bg3':        ['#3c3836',   '237',  'DarkGrey'],
-              \ 'bg4':        ['#3c3836',   '237',  'DarkGrey'],
-              \ 'bg5':        ['#504945',   '239',  'DarkGrey'],
-              \ 'bg_grey0':   ['#665c54',   '241',  'DarkGrey'],
-              \ 'bg_grey1':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_red':     ['#ea6962',   '167',  'Red'],
-              \ 'bg_green':   ['#a9b665',   '142',  'Green'],
-              \ 'bg_yellow':  ['#d8a657',   '214',  'Yellow'],
-              \ 'bg_green1':  ['#32361a',   '22',   'DarkGreen'],
-              \ 'bg_green2':  ['#333e34',   '22',   'DarkGreen'],
-              \ 'bg_red1':    ['#3c1f1e',   '52',   'DarkRed'],
-              \ 'bg_red2':    ['#442e2d',   '52',   'DarkRed'],
-              \ 'bg_blue1':   ['#0d3138',   '17',   'DarkBlue'],
-              \ 'bg_blue2':   ['#2e3b3b',   '17',   'DarkBlue'],
-              \ 'fg0':        ['#d4be98',   '223',  'White'],
-              \ 'fg1':        ['#ddc7a1',   '223',  'White'],
-              \ 'red':        ['#ea6962',   '167',  'Red'],
-              \ 'orange':     ['#e78a4e',   '208',  'DarkYellow'],
-              \ 'yellow':     ['#d8a657',   '214',  'Yellow'],
-              \ 'green':      ['#a9b665',   '142',  'Green'],
-              \ 'aqua':       ['#89b482',   '108',  'Cyan'],
-              \ 'blue':       ['#7daea3',   '109',  'Blue'],
-              \ 'purple':     ['#d3869b',   '175',  'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'LightGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      else
-        let s:palette = {
-              \ 'bg0':        ['#f9f5d7',   '230',  'White'],
-              \ 'bg1':        ['#f7f0ce',   '229',  'LightGrey'],
-              \ 'bg2':        ['#f3eac7',   '229',  'LightGrey'],
-              \ 'bg3':        ['#f2e5bc',   '228',  'LightGrey'],
-              \ 'bg4':        ['#ebdbb2',   '223',  'LightGrey'],
-              \ 'bg5':        ['#ebdbb2',   '223',  'LightGrey'],
-              \ 'bg_grey0':   ['#d5c4a1',   '250',  'LightGrey'],
-              \ 'bg_grey1':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_red':     ['#ae5858',   '88',   'Red'],
-              \ 'bg_green':   ['#6f8352',   '100',  'Green'],
-              \ 'bg_yellow':  ['#a96b2c',   '130',  'Yellow'],
-              \ 'bg_green1':  ['#e3f6b4',   '194',  'LightGreen'],
-              \ 'bg_green2':  ['#dde5c2',   '194',  'LightGreen'],
-              \ 'bg_red1':    ['#ffdbcc',   '217',  'LightRed'],
-              \ 'bg_red2':    ['#f6d2ba',   '217',  'LightRed'],
-              \ 'bg_blue1':   ['#cff1f6',   '117',  'LightBlue'],
-              \ 'bg_blue2':   ['#d9e1cc',   '117',  'LightBlue'],
-              \ 'fg0':        ['#654735',   '237',  'Black'],
-              \ 'fg1':        ['#4f3829',   '237',  'Black'],
-              \ 'red':        ['#c14a4a',   '88',   'Red'],
-              \ 'orange':     ['#c35e0a',   '130',  'DarkYellow'],
-              \ 'yellow':     ['#b47109',   '136',  'Yellow'],
-              \ 'green':      ['#6c782e',   '100',  'Green'],
-              \ 'aqua':       ['#4c7a5d',   '165',  'Cyan'],
-              \ 'blue':       ['#45707a',   '24',   'Blue'],
-              \ 'purple':     ['#945e80',   '96',   'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'DarkGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      endif  " }}}
-    elseif s:configuration.background ==# 'medium'  " {{{
-      if &background ==# 'dark'
-        let s:palette = {
-              \ 'bg0':        ['#282828',   '235',  'Black'],
-              \ 'bg1':        ['#2e2d2d',   '236',  'DarkGrey'],
-              \ 'bg2':        ['#32302f',   '236',  'DarkGrey'],
-              \ 'bg3':        ['#45403d',   '237',  'DarkGrey'],
-              \ 'bg4':        ['#45403d',   '237',  'DarkGrey'],
-              \ 'bg5':        ['#5a524c',   '239',  'DarkGrey'],
-              \ 'bg_grey0':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_grey1':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_red':     ['#ea6962',   '167',  'Red'],
-              \ 'bg_green':   ['#a9b665',   '142',  'Green'],
-              \ 'bg_yellow':  ['#d8a657',   '214',  'Yellow'],
-              \ 'bg_green1':  ['#34381b',   '22',   'DarkGreen'],
-              \ 'bg_green2':  ['#3b4439',   '22',   'DarkGreen'],
-              \ 'bg_red1':    ['#402120',   '52',   'DarkRed'],
-              \ 'bg_red2':    ['#4c3432',   '52',   'DarkRed'],
-              \ 'bg_blue1':   ['#0e363e',   '17',   'DarkBlue'],
-              \ 'bg_blue2':   ['#374141',   '17',   'DarkBlue'],
-              \ 'fg0':        ['#d4be98',   '223',  'White'],
-              \ 'fg1':        ['#ddc7a1',   '223',  'White'],
-              \ 'red':        ['#ea6962',   '167',  'Red'],
-              \ 'orange':     ['#e78a4e',   '208',  'DarkYellow'],
-              \ 'yellow':     ['#d8a657',   '214',  'Yellow'],
-              \ 'green':      ['#a9b665',   '142',  'Green'],
-              \ 'aqua':       ['#89b482',   '108',  'Cyan'],
-              \ 'blue':       ['#7daea3',   '109',  'Blue'],
-              \ 'purple':     ['#d3869b',   '175',  'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'LightGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      else
-        let s:palette = {
-              \ 'bg0':        ['#fbf1c7',   '229',  'White'],
-              \ 'bg1':        ['#f6ebc1',   '228',  'LightGrey'],
-              \ 'bg2':        ['#f2e5bc',   '228',  'LightGrey'],
-              \ 'bg3':        ['#ebdbb2',   '223',  'LightGrey'],
-              \ 'bg4':        ['#e0cfa9',   '223',  'LightGrey'],
-              \ 'bg5':        ['#ddccab',   '250',  'LightGrey'],
-              \ 'bg_grey0':   ['#bdae93',   '248',  'LightGrey'],
-              \ 'bg_grey1':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_red':     ['#ae5858',   '88',   'Red'],
-              \ 'bg_green':   ['#6f8352',   '100',  'Green'],
-              \ 'bg_yellow':  ['#a96b2c',   '130',  'Yellow'],
-              \ 'bg_green1':  ['#daf0a7',   '194',  'LightGreen'],
-              \ 'bg_green2':  ['#dee2b6',   '194',  'LightGreen'],
-              \ 'bg_red1':    ['#fbcdb9',   '217',  'LightRed'],
-              \ 'bg_red2':    ['#f7cfae',   '217',  'LightRed'],
-              \ 'bg_blue1':   ['#c6eaf0',   '117',  'LightBlue'],
-              \ 'bg_blue2':   ['#dadec0',   '117',  'LightBlue'],
-              \ 'fg0':        ['#654735',   '237',  'Black'],
-              \ 'fg1':        ['#4f3829',   '237',  'Black'],
-              \ 'red':        ['#c14a4a',   '88',   'Red'],
-              \ 'orange':     ['#c35e0a',   '130',  'DarkYellow'],
-              \ 'yellow':     ['#b47109',   '136',  'Yellow'],
-              \ 'green':      ['#6c782e',   '100',  'Green'],
-              \ 'aqua':       ['#4c7a5d',   '165',  'Cyan'],
-              \ 'blue':       ['#45707a',   '24',   'Blue'],
-              \ 'purple':     ['#945e80',   '96',   'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'DarkGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      endif  " }}}
-    elseif s:configuration.background ==# 'soft'  " {{{
-      if &background ==# 'dark'
-        let s:palette = {
-              \ 'bg0':        ['#32302f',   '236',  'Black'],
-              \ 'bg1':        ['#383533',   '237',  'DarkGrey'],
-              \ 'bg2':        ['#3c3836',   '237',  'DarkGrey'],
-              \ 'bg3':        ['#504945',   '239',  'DarkGrey'],
-              \ 'bg4':        ['#504945',   '239',  'DarkGrey'],
-              \ 'bg5':        ['#665c54',   '241',  'DarkGrey'],
-              \ 'bg_grey0':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_grey1':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_red':     ['#ea6962',   '167',  'Red'],
-              \ 'bg_green':   ['#a9b665',   '142',  'Green'],
-              \ 'bg_yellow':  ['#d8a657',   '214',  'Yellow'],
-              \ 'bg_green1':  ['#3d4220',   '22',   'DarkGreen'],
-              \ 'bg_green2':  ['#333e34',   '22',   'DarkGreen'],
-              \ 'bg_red1':    ['#472322',   '52',   'DarkRed'],
-              \ 'bg_red2':    ['#442e2d',   '52',   'DarkRed'],
-              \ 'bg_blue1':   ['#0f3a42',   '17',   'DarkBlue'],
-              \ 'bg_blue2':   ['#2e3b3b',   '17',   'DarkBlue'],
-              \ 'fg0':        ['#d4be98',   '223',  'White'],
-              \ 'fg1':        ['#ddc7a1',   '223',  'White'],
-              \ 'red':        ['#ea6962',   '167',  'Red'],
-              \ 'orange':     ['#e78a4e',   '208',  'DarkYellow'],
-              \ 'yellow':     ['#d8a657',   '214',  'Yellow'],
-              \ 'green':      ['#a9b665',   '142',  'Green'],
-              \ 'aqua':       ['#89b482',   '108',  'Cyan'],
-              \ 'blue':       ['#7daea3',   '109',  'Blue'],
-              \ 'purple':     ['#d3869b',   '175',  'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'LightGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      else
-        let s:palette = {
-              \ 'bg0':        ['#f2e5bc',   '228',  'White'],
-              \ 'bg1':        ['#efe0b7',   '223',  'LightGrey'],
-              \ 'bg2':        ['#ebdbb2',   '228',  'LightGrey'],
-              \ 'bg3':        ['#e0cfa9',   '223',  'LightGrey'],
-              \ 'bg4':        ['#d5c4a1',   '250',  'LightGrey'],
-              \ 'bg5':        ['#d5c4a1',   '250',  'LightGrey'],
-              \ 'bg_grey0':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_grey1':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_red':     ['#ae5858',   '88',   'Red'],
-              \ 'bg_green':   ['#6f8352',   '100',  'Green'],
-              \ 'bg_yellow':  ['#a96b2c',   '130',  'Yellow'],
-              \ 'bg_green1':  ['#d1ea9b',   '194',  'LightGreen'],
-              \ 'bg_green2':  ['#d7d9ae',   '194',  'LightGreen'],
-              \ 'bg_red1':    ['#fbcab5',   '217',  'LightRed'],
-              \ 'bg_red2':    ['#f0c6a6',   '217',  'LightRed'],
-              \ 'bg_blue1':   ['#bee4ea',   '117',  'LightBlue'],
-              \ 'bg_blue2':   ['#d3d5b8',   '117',  'LightBlue'],
-              \ 'fg0':        ['#654735',   '237',  'Black'],
-              \ 'fg1':        ['#4f3829',   '237',  'Black'],
-              \ 'red':        ['#c14a4a',   '88',   'Red'],
-              \ 'orange':     ['#c35e0a',   '130',  'DarkYellow'],
-              \ 'yellow':     ['#b47109',   '136',  'Yellow'],
-              \ 'green':      ['#6c782e',   '100',  'Green'],
-              \ 'aqua':       ['#4c7a5d',   '165',  'Cyan'],
-              \ 'blue':       ['#45707a',   '24',   'Blue'],
-              \ 'purple':     ['#945e80',   '96',   'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'DarkGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      endif
-    endif  " }}}
-  elseif s:configuration.palette ==# 'original'
-    if s:configuration.background ==# 'hard'  " {{{
-      if &background ==# 'dark'
-        let s:palette = {
-              \ 'bg0':        ['#1d2021',   '234',  'Black'],
-              \ 'bg1':        ['#242525',   '235',  'DarkGrey'],
-              \ 'bg2':        ['#282828',   '235',  'DarkGrey'],
-              \ 'bg3':        ['#3c3836',   '237',  'DarkGrey'],
-              \ 'bg4':        ['#3c3836',   '237',  'DarkGrey'],
-              \ 'bg5':        ['#504945',   '239',  'DarkGrey'],
-              \ 'bg_grey0':   ['#665c54',   '241',  'DarkGrey'],
-              \ 'bg_grey1':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_red':     ['#cc241d',   '124',  'Red'],
-              \ 'bg_green':   ['#b8bb26',   '106',  'Green'],
-              \ 'bg_yellow':  ['#fabd2f',   '172',  'Yellow'],
-              \ 'bg_green1':  ['#32361a',   '22',   'DarkGreen'],
-              \ 'bg_green2':  ['#333e34',   '22',   'DarkGreen'],
-              \ 'bg_red1':    ['#3c1f1e',   '52',   'DarkRed'],
-              \ 'bg_red2':    ['#442e2d',   '52',   'DarkRed'],
-              \ 'bg_blue1':   ['#0d3138',   '17',   'DarkBlue'],
-              \ 'bg_blue2':   ['#2e3b3b',   '17',   'DarkBlue'],
-              \ 'fg0':        ['#ebdbb2',   '223',  'White'],
-              \ 'fg1':        ['#ebdbb2',   '223',  'White'],
-              \ 'red':        ['#fb4934',   '167',  'Red'],
-              \ 'orange':     ['#fe8019',   '208',  'DarkYellow'],
-              \ 'yellow':     ['#fabd2f',   '214',  'Yellow'],
-              \ 'green':      ['#b8bb26',   '142',  'Green'],
-              \ 'aqua':       ['#8ec07c',   '108',  'Cyan'],
-              \ 'blue':       ['#83a598',   '109',  'Blue'],
-              \ 'purple':     ['#d3869b',   '175',  'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'LightGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      else
-        let s:palette = {
-              \ 'bg0':        ['#f9f5d7',   '230',  'White'],
-              \ 'bg1':        ['#f7f0ce',   '229',  'LightGrey'],
-              \ 'bg2':        ['#f3eac7',   '229',  'LightGrey'],
-              \ 'bg3':        ['#f2e5bc',   '228',  'LightGrey'],
-              \ 'bg4':        ['#ebdbb2',   '223',  'LightGrey'],
-              \ 'bg5':        ['#ebdbb2',   '223',  'LightGrey'],
-              \ 'bg_grey0':   ['#d5c4a1',   '250',  'LightGrey'],
-              \ 'bg_grey1':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_red':     ['#cc241d',   '124',  'Red'],
-              \ 'bg_green':   ['#79740e',   '106',  'Green'],
-              \ 'bg_yellow':  ['#b57614',   '172',  'Yellow'],
-              \ 'bg_green1':  ['#e3f6b4',   '194',  'LightGreen'],
-              \ 'bg_green2':  ['#dde5c2',   '194',  'LightGreen'],
-              \ 'bg_red1':    ['#ffdbcc',   '217',  'LightRed'],
-              \ 'bg_red2':    ['#f6d2ba',   '217',  'LightRed'],
-              \ 'bg_blue1':   ['#cff1f6',   '117',  'LightBlue'],
-              \ 'bg_blue2':   ['#d9e1cc',   '117',  'LightBlue'],
-              \ 'fg0':        ['#3c3836',   '237',  'Black'],
-              \ 'fg1':        ['#3c3836',   '237',  'Black'],
-              \ 'red':        ['#9d0006',   '88',   'Red'],
-              \ 'orange':     ['#af3a03',   '130',  'DarkYellow'],
-              \ 'yellow':     ['#b57614',   '136',  'Yellow'],
-              \ 'green':      ['#79740e',   '100',  'Green'],
-              \ 'aqua':       ['#427b58',   '165',  'Cyan'],
-              \ 'blue':       ['#076678',   '24',   'Blue'],
-              \ 'purple':     ['#8f3f71',   '96',   'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'DarkGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      endif  " }}}
-    elseif s:configuration.background ==# 'medium'  " {{{
-      if &background ==# 'dark'
-        let s:palette = {
-              \ 'bg0':        ['#282828',   '235',  'Black'],
-              \ 'bg1':        ['#2e2d2d',   '236',  'DarkGrey'],
-              \ 'bg2':        ['#32302f',   '236',  'DarkGrey'],
-              \ 'bg3':        ['#45403d',   '237',  'DarkGrey'],
-              \ 'bg4':        ['#45403d',   '237',  'DarkGrey'],
-              \ 'bg5':        ['#5a524c',   '239',  'DarkGrey'],
-              \ 'bg_grey0':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_grey1':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_red':     ['#cc241d',   '124',  'Red'],
-              \ 'bg_green':   ['#b8bb26',   '106',  'Green'],
-              \ 'bg_yellow':  ['#fabd2f',   '172',  'Yellow'],
-              \ 'bg_green1':  ['#34381b',   '22',   'DarkGreen'],
-              \ 'bg_green2':  ['#3b4439',   '22',   'DarkGreen'],
-              \ 'bg_red1':    ['#402120',   '52',   'DarkRed'],
-              \ 'bg_red2':    ['#4c3432',   '52',   'DarkRed'],
-              \ 'bg_blue1':   ['#0e363e',   '17',   'DarkBlue'],
-              \ 'bg_blue2':   ['#374141',   '17',   'DarkBlue'],
-              \ 'fg0':        ['#ebdbb2',   '223',  'White'],
-              \ 'fg1':        ['#ebdbb2',   '223',  'White'],
-              \ 'red':        ['#fb4934',   '167',  'Red'],
-              \ 'orange':     ['#fe8019',   '208',  'DarkYellow'],
-              \ 'yellow':     ['#fabd2f',   '214',  'Yellow'],
-              \ 'green':      ['#b8bb26',   '142',  'Green'],
-              \ 'aqua':       ['#8ec07c',   '108',  'Cyan'],
-              \ 'blue':       ['#83a598',   '109',  'Blue'],
-              \ 'purple':     ['#d3869b',   '175',  'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'LightGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      else
-        let s:palette = {
-              \ 'bg0':        ['#fbf1c7',   '229',  'White'],
-              \ 'bg1':        ['#f6ebc1',   '228',  'LightGrey'],
-              \ 'bg2':        ['#f2e5bc',   '228',  'LightGrey'],
-              \ 'bg3':        ['#ebdbb2',   '223',  'LightGrey'],
-              \ 'bg4':        ['#e0cfa9',   '223',  'LightGrey'],
-              \ 'bg5':        ['#ddccab',   '250',  'LightGrey'],
-              \ 'bg_grey0':   ['#bdae93',   '248',  'LightGrey'],
-              \ 'bg_grey1':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_red':     ['#cc241d',   '124',  'Red'],
-              \ 'bg_green':   ['#79740e',   '106',  'Green'],
-              \ 'bg_yellow':  ['#b57614',   '172',  'Yellow'],
-              \ 'bg_green1':  ['#daf0a7',   '194',  'LightGreen'],
-              \ 'bg_green2':  ['#dee2b6',   '194',  'LightGreen'],
-              \ 'bg_red1':    ['#fbcdb9',   '217',  'LightRed'],
-              \ 'bg_red2':    ['#f7cfae',   '217',  'LightRed'],
-              \ 'bg_blue1':   ['#c6eaf0',   '117',  'LightBlue'],
-              \ 'bg_blue2':   ['#dadec0',   '117',  'LightBlue'],
-              \ 'fg0':        ['#3c3836',   '237',  'Black'],
-              \ 'fg1':        ['#3c3836',   '237',  'Black'],
-              \ 'red':        ['#9d0006',   '88',   'Red'],
-              \ 'orange':     ['#af3a03',   '130',  'DarkYellow'],
-              \ 'yellow':     ['#b57614',   '136',  'Yellow'],
-              \ 'green':      ['#79740e',   '100',  'Green'],
-              \ 'aqua':       ['#427b58',   '165',  'Cyan'],
-              \ 'blue':       ['#076678',   '24',   'Blue'],
-              \ 'purple':     ['#8f3f71',   '96',   'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'DarkGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      endif  " }}}
-    elseif s:configuration.background ==# 'soft'  " {{{
-      if &background ==# 'dark'
-        let s:palette = {
-              \ 'bg0':        ['#32302f',   '236',  'Black'],
-              \ 'bg1':        ['#383533',   '237',  'DarkGrey'],
-              \ 'bg2':        ['#3c3836',   '237',  'DarkGrey'],
-              \ 'bg3':        ['#504945',   '239',  'DarkGrey'],
-              \ 'bg4':        ['#504945',   '239',  'DarkGrey'],
-              \ 'bg5':        ['#665c54',   '241',  'DarkGrey'],
-              \ 'bg_grey0':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_grey1':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_red':     ['#cc241d',   '124',  'Red'],
-              \ 'bg_green':   ['#b8bb26',   '106',  'Green'],
-              \ 'bg_yellow':  ['#fabd2f',   '172',  'Yellow'],
-              \ 'bg_green1':  ['#3d4220',   '22',   'DarkGreen'],
-              \ 'bg_green2':  ['#333e34',   '22',   'DarkGreen'],
-              \ 'bg_red1':    ['#472322',   '52',   'DarkRed'],
-              \ 'bg_red2':    ['#442e2d',   '52',   'DarkRed'],
-              \ 'bg_blue1':   ['#0f3a42',   '17',   'DarkBlue'],
-              \ 'bg_blue2':   ['#2e3b3b',   '17',   'DarkBlue'],
-              \ 'fg0':        ['#ebdbb2',   '223',  'White'],
-              \ 'fg1':        ['#ebdbb2',   '223',  'White'],
-              \ 'red':        ['#fb4934',   '167',  'Red'],
-              \ 'orange':     ['#fe8019',   '208',  'DarkYellow'],
-              \ 'yellow':     ['#fabd2f',   '214',  'Yellow'],
-              \ 'green':      ['#b8bb26',   '142',  'Green'],
-              \ 'aqua':       ['#8ec07c',   '108',  'Cyan'],
-              \ 'blue':       ['#83a598',   '109',  'Blue'],
-              \ 'purple':     ['#d3869b',   '175',  'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'LightGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      else
-        let s:palette = {
-              \ 'bg0':        ['#f2e5bc',   '228',  'White'],
-              \ 'bg1':        ['#efe0b7',   '223',  'LightGrey'],
-              \ 'bg2':        ['#ebdbb2',   '228',  'LightGrey'],
-              \ 'bg3':        ['#e0cfa9',   '223',  'LightGrey'],
-              \ 'bg4':        ['#d5c4a1',   '250',  'LightGrey'],
-              \ 'bg5':        ['#d5c4a1',   '250',  'LightGrey'],
-              \ 'bg_grey0':   ['#a89984',   '246',  'LightGrey'],
-              \ 'bg_grey1':   ['#7c6f64',   '243',  'DarkGrey'],
-              \ 'bg_red':     ['#cc241d',   '124',  'Red'],
-              \ 'bg_green':   ['#79740e',   '106',  'Green'],
-              \ 'bg_yellow':  ['#b57614',   '172',  'Yellow'],
-              \ 'bg_green1':  ['#d1ea9b',   '194',  'LightGreen'],
-              \ 'bg_green2':  ['#d7d9ae',   '194',  'LightGreen'],
-              \ 'bg_red1':    ['#fbcab5',   '217',  'LightRed'],
-              \ 'bg_red2':    ['#f0c6a6',   '217',  'LightRed'],
-              \ 'bg_blue1':   ['#bee4ea',   '117',  'LightBlue'],
-              \ 'bg_blue2':   ['#d3d5b8',   '117',  'LightBlue'],
-              \ 'fg0':        ['#3c3836',   '237',  'Black'],
-              \ 'fg1':        ['#3c3836',   '237',  'Black'],
-              \ 'red':        ['#9d0006',   '88',   'Red'],
-              \ 'orange':     ['#af3a03',   '130',  'DarkYellow'],
-              \ 'yellow':     ['#b57614',   '136',  'Yellow'],
-              \ 'green':      ['#79740e',   '100',  'Green'],
-              \ 'aqua':       ['#427b58',   '165',  'Cyan'],
-              \ 'blue':       ['#076678',   '24',   'Blue'],
-              \ 'purple':     ['#8f3f71',   '96',   'Magenta'],
-              \ 'grey':       ['#928374',   '245',  'DarkGrey'],
-              \ 'none':       ['NONE',      'NONE', 'NONE']
-              \ }
-      endif
-    endif  " }}}
-  endif
-endif
-" }}}
-" Function: {{{
-" call s:HL(group, foreground, background)
-" call s:HL(group, foreground, background, gui, guisp)
-"
-" E.g.:
-" call s:HL('Normal', s:palette.fg0, s:palette.bg0)
 
-if (has('termguicolors') && &termguicolors) || has('gui_running')  " guifg guibg gui cterm guisp
-  function! s:HL(group, fg, bg, ...)
-    let hl_string = [
-          \ 'highlight', a:group,
-          \ 'guifg=' . a:fg[0],
-          \ 'guibg=' . a:bg[0],
-          \ ]
-    if a:0 >= 1
-      if a:1 ==# 'undercurl'
-        call add(hl_string, 'gui=undercurl')
-        call add(hl_string, 'cterm=underline')
-      else
-        call add(hl_string, 'gui=' . a:1)
-        call add(hl_string, 'cterm=' . a:1)
-      endif
-    else
-      call add(hl_string, 'gui=NONE')
-      call add(hl_string, 'cterm=NONE')
-    endif
-    if a:0 >= 2
-      call add(hl_string, 'guisp=' . a:2[0])
-    endif
-    execute join(hl_string, ' ')
-  endfunction
-elseif s:t_Co >= 256  " ctermfg ctermbg cterm
-  function! s:HL(group, fg, bg, ...)
-    let hl_string = [
-          \ 'highlight', a:group,
-          \ 'ctermfg=' . a:fg[1],
-          \ 'ctermbg=' . a:bg[1],
-          \ ]
-    if a:0 >= 1
-      if a:1 ==# 'undercurl'
-        call add(hl_string, 'cterm=underline')
-      else
-        call add(hl_string, 'cterm=' . a:1)
-      endif
-    else
-      call add(hl_string, 'cterm=NONE')
-    endif
-    execute join(hl_string, ' ')
-  endfunction
-else  " ctermfg ctermbg cterm
-  function! s:HL(group, fg, bg, ...)
-    let hl_string = [
-          \ 'highlight', a:group,
-          \ 'ctermfg=' . a:fg[2],
-          \ 'ctermbg=' . a:bg[2],
-          \ ]
-    if a:0 >= 1
-      if a:1 ==# 'undercurl'
-        call add(hl_string, 'cterm=underline')
-      else
-        call add(hl_string, 'cterm=' . a:1)
-      endif
-    else
-      call add(hl_string, 'cterm=NONE')
-    endif
-    execute join(hl_string, ' ')
-  endfunction
+if !(has('termguicolors') && &termguicolors) && !has('gui_running') && &t_Co != 256
+  finish
 endif
-" }}}
 
+let s:configuration = gruvbox_material#get_configuration()
+let s:palette = gruvbox_material#get_palette(s:configuration.background, s:configuration.palette)
+let s:path = expand('<sfile>:p') " the path of this script
+let s:last_modified = 'Mon 29 Jun 2020 10:07:19 AM UTC'
+let g:gruvbox_material_loaded_file_types = []
+" }}}
 " Common Highlight Groups: {{{
 " UI: {{{
 if s:configuration.transparent_background
-  call s:HL('Normal', s:palette.fg0, s:palette.none)
-  call s:HL('Terminal', s:palette.fg0, s:palette.none)
-  call s:HL('EndOfBuffer', s:palette.bg0, s:palette.none)
-  call s:HL('FoldColumn', s:palette.grey, s:palette.none)
-  call s:HL('Folded', s:palette.grey, s:palette.none)
-  call s:HL('SignColumn', s:palette.fg0, s:palette.none)
-  call s:HL('IncSearch', s:palette.none, s:palette.none, 'reverse,bold,underline')
-  call s:HL('Search', s:palette.none, s:palette.none, 'reverse')
+  call gruvbox_material#highlight('Normal', s:palette.fg0, s:palette.none)
+  call gruvbox_material#highlight('Terminal', s:palette.fg0, s:palette.none)
+  call gruvbox_material#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
+  call gruvbox_material#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+  call gruvbox_material#highlight('Folded', s:palette.grey1, s:palette.none)
+  call gruvbox_material#highlight('SignColumn', s:palette.fg0, s:palette.none)
+  call gruvbox_material#highlight('ToolbarLine', s:palette.fg0, s:palette.none)
 else
-  call s:HL('Normal', s:palette.fg0, s:palette.bg0)
-  call s:HL('Terminal', s:palette.fg0, s:palette.bg0)
-  call s:HL('EndOfBuffer', s:palette.bg0, s:palette.bg0)
-  call s:HL('FoldColumn', s:palette.grey, s:palette.bg2)
-  call s:HL('Folded', s:palette.grey, s:palette.bg2)
-  call s:HL('SignColumn', s:palette.fg0, s:palette.bg2)
-  call s:HL('IncSearch', s:palette.none, s:palette.none, 'reverse')
-  call s:HL('Search', s:palette.none, s:palette.bg_blue2)
+  call gruvbox_material#highlight('Normal', s:palette.fg0, s:palette.bg0)
+  call gruvbox_material#highlight('Terminal', s:palette.fg0, s:palette.bg0)
+  call gruvbox_material#highlight('EndOfBuffer', s:palette.bg0, s:palette.bg0)
+  call gruvbox_material#highlight('Folded', s:palette.grey1, s:palette.bg2)
+  call gruvbox_material#highlight('ToolbarLine', s:palette.fg1, s:palette.bg3)
+  if s:configuration.sign_column_background ==# 'default'
+    call gruvbox_material#highlight('SignColumn', s:palette.fg0, s:palette.bg2)
+    call gruvbox_material#highlight('FoldColumn', s:palette.grey0, s:palette.bg2)
+  else
+    call gruvbox_material#highlight('SignColumn', s:palette.fg0, s:palette.none)
+    call gruvbox_material#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+  endif
 endif
-call s:HL('ColorColumn', s:palette.none, s:palette.bg2)
-call s:HL('Conceal', s:palette.grey, s:palette.none)
-call s:HL('Cursor', s:palette.none, s:palette.none, 'reverse')
-call s:HL('lCursor', s:palette.none, s:palette.none, 'reverse')
-call s:HL('CursorColumn', s:palette.none, s:palette.bg1)
-call s:HL('CursorLine', s:palette.none, s:palette.bg1)
-call s:HL('LineNr', s:palette.bg_grey0, s:palette.none)
-if &relativenumber == 1 && &cursorline == 0
-  call s:HL('CursorLineNr', s:palette.bg_grey1, s:palette.none)
+call gruvbox_material#highlight('IncSearch', s:palette.bg0, s:palette.bg_red)
+call gruvbox_material#highlight('Search', s:palette.bg0, s:palette.bg_green)
+call gruvbox_material#highlight('ColorColumn', s:palette.none, s:palette.bg2)
+call gruvbox_material#highlight('Conceal', s:palette.grey0, s:palette.none)
+if s:configuration.cursor ==# 'auto'
+  call gruvbox_material#highlight('Cursor', s:palette.none, s:palette.none, 'reverse')
 else
-  call s:HL('CursorLineNr', s:palette.bg_grey1, s:palette.bg1)
+  call gruvbox_material#highlight('Cursor', s:palette.bg0, s:palette[s:configuration.cursor])
 endif
-call s:HL('DiffAdd', s:palette.none, s:palette.bg_green1)
-call s:HL('DiffChange', s:palette.none, s:palette.bg_blue1)
-call s:HL('DiffDelete', s:palette.none, s:palette.bg_red1)
-call s:HL('DiffText', s:palette.none, s:palette.none, 'reverse')
-call s:HL('Directory', s:palette.green, s:palette.none)
-call s:HL('ErrorMsg', s:palette.red, s:palette.none, 'bold,underline')
-call s:HL('WarningMsg', s:palette.yellow, s:palette.none, 'bold')
-call s:HL('ModeMsg', s:palette.fg0, s:palette.none, 'bold')
-call s:HL('MoreMsg', s:palette.yellow, s:palette.none, 'bold')
-call s:HL('MatchParen', s:palette.none, s:palette.bg4)
-call s:HL('NonText', s:palette.grey, s:palette.none)
-call s:HL('Pmenu', s:palette.fg1, s:palette.bg3)
-call s:HL('PmenuSbar', s:palette.none, s:palette.bg3)
+highlight! link vCursor Cursor
+highlight! link iCursor Cursor
+highlight! link lCursor Cursor
+highlight! link CursorIM Cursor
+call gruvbox_material#highlight('CursorColumn', s:palette.none, s:palette.bg1)
+call gruvbox_material#highlight('CursorLine', s:palette.none, s:palette.bg1)
+call gruvbox_material#highlight('LineNr', s:palette.grey0, s:palette.none)
+if (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
+  call gruvbox_material#highlight('CursorLineNr', s:palette.grey2, s:palette.none)
+else
+  call gruvbox_material#highlight('CursorLineNr', s:palette.grey2, s:palette.bg1)
+endif
+call gruvbox_material#highlight('DiffAdd', s:palette.none, s:palette.bg_diff_green)
+call gruvbox_material#highlight('DiffChange', s:palette.none, s:palette.bg_diff_blue)
+call gruvbox_material#highlight('DiffDelete', s:palette.none, s:palette.bg_diff_red)
+call gruvbox_material#highlight('DiffText', s:palette.bg0, s:palette.fg0)
+call gruvbox_material#highlight('Directory', s:palette.green, s:palette.none)
+call gruvbox_material#highlight('ErrorMsg', s:palette.red, s:palette.none, 'bold,underline')
+call gruvbox_material#highlight('WarningMsg', s:palette.yellow, s:palette.none, 'bold')
+call gruvbox_material#highlight('ModeMsg', s:palette.fg0, s:palette.none, 'bold')
+call gruvbox_material#highlight('MoreMsg', s:palette.yellow, s:palette.none, 'bold')
+call gruvbox_material#highlight('MatchParen', s:palette.none, s:palette.bg4)
+call gruvbox_material#highlight('NonText', s:palette.bg5, s:palette.none)
+call gruvbox_material#highlight('Whitespace', s:palette.bg5, s:palette.none)
+call gruvbox_material#highlight('SpecialKey', s:palette.bg5, s:palette.none)
+call gruvbox_material#highlight('Pmenu', s:palette.fg1, s:palette.bg3)
+call gruvbox_material#highlight('PmenuSbar', s:palette.none, s:palette.bg3)
 if s:configuration.menu_selection_background ==# 'grey'
-  call s:HL('PmenuSel', s:palette.bg3, s:palette.bg_grey1)
-  call s:HL('WildMenu', s:palette.bg3, s:palette.bg_grey1)
+  call gruvbox_material#highlight('PmenuSel', s:palette.bg3, s:palette.grey2)
 elseif s:configuration.menu_selection_background ==# 'green'
-  call s:HL('PmenuSel', s:palette.bg3, s:palette.bg_green)
-  call s:HL('WildMenu', s:palette.bg3, s:palette.bg_green)
+  call gruvbox_material#highlight('PmenuSel', s:palette.bg3, s:palette.bg_green)
+elseif s:configuration.menu_selection_background ==# 'red'
+  call gruvbox_material#highlight('PmenuSel', s:palette.bg3, s:palette.bg_red)
+else
+  call gruvbox_material#highlight('PmenuSel', s:palette.bg3, s:palette[s:configuration.menu_selection_background])
 end
-call s:HL('PmenuThumb', s:palette.none, s:palette.bg_grey0)
-call s:HL('Question', s:palette.yellow, s:palette.none)
-call s:HL('SpellBad', s:palette.red, s:palette.none, 'undercurl', s:palette.red)
-call s:HL('SpellCap', s:palette.blue, s:palette.none, 'undercurl', s:palette.blue)
-call s:HL('SpellLocal', s:palette.aqua, s:palette.none, 'undercurl', s:palette.aqua)
-call s:HL('SpellRare', s:palette.purple, s:palette.none, 'undercurl', s:palette.purple)
-call s:HL('StatusLine', s:palette.fg1, s:palette.bg5)
-call s:HL('StatusLineTerm', s:palette.fg1, s:palette.bg5)
-call s:HL('StatusLineNC', s:palette.grey, s:palette.bg2)
-call s:HL('StatusLineTermNC', s:palette.grey, s:palette.bg2)
-call s:HL('TabLine', s:palette.fg1, s:palette.bg5)
-call s:HL('TabLineFill', s:palette.fg0, s:palette.bg2)
-call s:HL('TabLineSel', s:palette.bg0, s:palette.bg_grey1)
-call s:HL('VertSplit', s:palette.bg5, s:palette.none)
-if s:configuration.visual ==# 'grey background'
-  call s:HL('Visual', s:palette.none, s:palette.bg3)
-  call s:HL('VisualNOS', s:palette.none, s:palette.bg3)
-elseif s:configuration.visual ==# 'green background'
-  call s:HL('Visual', s:palette.none, s:palette.bg_green2)
-  call s:HL('VisualNOS', s:palette.none, s:palette.bg_green2)
-elseif s:configuration.visual ==# 'blue background'
-  call s:HL('Visual', s:palette.none, s:palette.bg_blue2)
-  call s:HL('VisualNOS', s:palette.none, s:palette.bg_blue2)
-elseif s:configuration.visual ==# 'red background'
-  call s:HL('Visual', s:palette.none, s:palette.bg_red2)
-  call s:HL('VisualNOS', s:palette.none, s:palette.bg_red2)
-elseif s:configuration.visual ==# 'reverse'
-  call s:HL('Visual', s:palette.none, s:palette.none, 'reverse')
-  call s:HL('VisualNOS', s:palette.none, s:palette.none, 'reverse')
+highlight! link WildMenu PmenuSel
+call gruvbox_material#highlight('PmenuThumb', s:palette.none, s:palette.grey0)
+call gruvbox_material#highlight('Question', s:palette.yellow, s:palette.none)
+call gruvbox_material#highlight('SpellBad', s:palette.red, s:palette.none, 'undercurl', s:palette.red)
+call gruvbox_material#highlight('SpellCap', s:palette.blue, s:palette.none, 'undercurl', s:palette.blue)
+call gruvbox_material#highlight('SpellLocal', s:palette.aqua, s:palette.none, 'undercurl', s:palette.aqua)
+call gruvbox_material#highlight('SpellRare', s:palette.purple, s:palette.none, 'undercurl', s:palette.purple)
+if s:configuration.statusline_style ==# 'original'
+  call gruvbox_material#highlight('StatusLine', s:palette.grey2, s:palette.bg_statusline3)
+  call gruvbox_material#highlight('StatusLineTerm', s:palette.grey2, s:palette.bg_statusline3)
+  call gruvbox_material#highlight('StatusLineNC', s:palette.grey1, s:palette.bg_statusline2)
+  call gruvbox_material#highlight('StatusLineTermNC', s:palette.grey1, s:palette.bg_statusline2)
+  call gruvbox_material#highlight('TabLine', s:palette.grey2, s:palette.bg_statusline3)
+  call gruvbox_material#highlight('TabLineFill', s:palette.grey1, s:palette.bg0)
+  call gruvbox_material#highlight('TabLineSel', s:palette.bg0, s:palette.grey2)
+else
+  call gruvbox_material#highlight('StatusLine', s:palette.fg1, s:palette.bg_statusline2)
+  call gruvbox_material#highlight('StatusLineTerm', s:palette.fg1, s:palette.bg_statusline2)
+  call gruvbox_material#highlight('StatusLineNC', s:palette.grey2, s:palette.bg_statusline2)
+  call gruvbox_material#highlight('StatusLineTermNC', s:palette.grey2, s:palette.bg_statusline2)
+  call gruvbox_material#highlight('TabLine', s:palette.fg1, s:palette.bg_statusline3)
+  call gruvbox_material#highlight('TabLineFill', s:palette.fg0, s:palette.bg_statusline1)
+  call gruvbox_material#highlight('TabLineSel', s:palette.bg0, s:palette.grey2)
 endif
-call s:HL('CursorIM', s:palette.none, s:palette.none, 'reverse')
-call s:HL('ToolbarLine', s:palette.none, s:palette.bg2)
-call s:HL('ToolbarButton', s:palette.fg1, s:palette.bg5, 'bold')
-call s:HL('QuickFixLine', s:palette.yellow, s:palette.none, 'reverse')
-call s:HL('Debug', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('VertSplit', s:palette.bg5, s:palette.none)
+if s:configuration.visual ==# 'grey background'
+  call gruvbox_material#highlight('Visual', s:palette.none, s:palette.bg3)
+  call gruvbox_material#highlight('VisualNOS', s:palette.none, s:palette.bg3)
+elseif s:configuration.visual ==# 'green background'
+  call gruvbox_material#highlight('Visual', s:palette.none, s:palette.bg_visual_green)
+  call gruvbox_material#highlight('VisualNOS', s:palette.none, s:palette.bg_visual_green)
+elseif s:configuration.visual ==# 'blue background'
+  call gruvbox_material#highlight('Visual', s:palette.none, s:palette.bg_visual_blue)
+  call gruvbox_material#highlight('VisualNOS', s:palette.none, s:palette.bg_visual_blue)
+elseif s:configuration.visual ==# 'red background'
+  call gruvbox_material#highlight('Visual', s:palette.none, s:palette.bg_visual_red)
+  call gruvbox_material#highlight('VisualNOS', s:palette.none, s:palette.bg_visual_red)
+elseif s:configuration.visual ==# 'reverse'
+  call gruvbox_material#highlight('Visual', s:palette.none, s:palette.none, 'reverse')
+  call gruvbox_material#highlight('VisualNOS', s:palette.none, s:palette.none, 'reverse')
+endif
+call gruvbox_material#highlight('QuickFixLine', s:palette.purple, s:palette.none, 'bold')
+call gruvbox_material#highlight('Debug', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('debugPC', s:palette.bg0, s:palette.green)
+call gruvbox_material#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
+call gruvbox_material#highlight('ToolbarButton', s:palette.bg0, s:palette.grey2)
+if has('nvim')
+  call gruvbox_material#highlight('Substitute', s:palette.bg0, s:palette.yellow)
+  highlight! link TermCursor Cursor
+  highlight! link healthError Red
+  highlight! link healthSuccess Green
+  highlight! link healthWarning Yellow
+  highlight! link LspDiagnosticsError Grey
+  highlight! link LspDiagnosticsWarning Grey
+  highlight! link LspDiagnosticsInformation Grey
+  highlight! link LspDiagnosticsHint Grey
+  highlight! link LspReferenceText CurrentWord
+  highlight! link LspReferenceRead CurrentWord
+  highlight! link LspReferenceWrite CurrentWord
+endif
 " }}}
 " Syntax: {{{
-call s:HL('Boolean', s:palette.purple, s:palette.none)
-call s:HL('Number', s:palette.purple, s:palette.none)
-call s:HL('Float', s:palette.purple, s:palette.none)
+call gruvbox_material#highlight('Boolean', s:palette.purple, s:palette.none)
+call gruvbox_material#highlight('Number', s:palette.purple, s:palette.none)
+call gruvbox_material#highlight('Float', s:palette.purple, s:palette.none)
 if s:configuration.enable_italic
-  call s:HL('PreProc', s:palette.purple, s:palette.none, 'italic')
-  call s:HL('PreCondit', s:palette.purple, s:palette.none, 'italic')
-  call s:HL('Include', s:palette.purple, s:palette.none, 'italic')
-  call s:HL('Define', s:palette.purple, s:palette.none, 'italic')
-  call s:HL('Conditional', s:palette.red, s:palette.none, 'italic')
-  call s:HL('Repeat', s:palette.red, s:palette.none, 'italic')
-  call s:HL('Keyword', s:palette.red, s:palette.none, 'italic')
-  call s:HL('Typedef', s:palette.red, s:palette.none, 'italic')
-  call s:HL('Exception', s:palette.red, s:palette.none, 'italic')
-  call s:HL('Statement', s:palette.red, s:palette.none, 'italic')
+  call gruvbox_material#highlight('PreProc', s:palette.purple, s:palette.none, 'italic')
+  call gruvbox_material#highlight('PreCondit', s:palette.purple, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Include', s:palette.purple, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Define', s:palette.purple, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Conditional', s:palette.red, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Repeat', s:palette.red, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Keyword', s:palette.red, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Typedef', s:palette.red, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Exception', s:palette.red, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Statement', s:palette.red, s:palette.none, 'italic')
 else
-  call s:HL('PreProc', s:palette.purple, s:palette.none)
-  call s:HL('PreCondit', s:palette.purple, s:palette.none)
-  call s:HL('Include', s:palette.purple, s:palette.none)
-  call s:HL('Define', s:palette.purple, s:palette.none)
-  call s:HL('Conditional', s:palette.red, s:palette.none)
-  call s:HL('Repeat', s:palette.red, s:palette.none)
-  call s:HL('Keyword', s:palette.red, s:palette.none)
-  call s:HL('Typedef', s:palette.red, s:palette.none)
-  call s:HL('Exception', s:palette.red, s:palette.none)
-  call s:HL('Statement', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('PreProc', s:palette.purple, s:palette.none)
+  call gruvbox_material#highlight('PreCondit', s:palette.purple, s:palette.none)
+  call gruvbox_material#highlight('Include', s:palette.purple, s:palette.none)
+  call gruvbox_material#highlight('Define', s:palette.purple, s:palette.none)
+  call gruvbox_material#highlight('Conditional', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('Repeat', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('Keyword', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('Typedef', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('Exception', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('Statement', s:palette.red, s:palette.none)
 endif
-call s:HL('Error', s:palette.red, s:palette.none)
-call s:HL('StorageClass', s:palette.orange, s:palette.none)
-call s:HL('Tag', s:palette.orange, s:palette.none)
-call s:HL('Label', s:palette.orange, s:palette.none)
-call s:HL('Structure', s:palette.orange, s:palette.none)
-call s:HL('Operator', s:palette.orange, s:palette.none)
-call s:HL('Title', s:palette.orange, s:palette.none, 'bold')
-call s:HL('Special', s:palette.yellow, s:palette.none)
-call s:HL('SpecialChar', s:palette.yellow, s:palette.none)
-call s:HL('Type', s:palette.yellow, s:palette.none)
+call gruvbox_material#highlight('Error', s:palette.red, s:palette.none)
+call gruvbox_material#highlight('StorageClass', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('Tag', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('Label', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('Structure', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('Operator', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('Title', s:palette.orange, s:palette.none, 'bold')
+call gruvbox_material#highlight('Special', s:palette.yellow, s:palette.none)
+call gruvbox_material#highlight('SpecialChar', s:palette.yellow, s:palette.none)
+call gruvbox_material#highlight('Type', s:palette.yellow, s:palette.none)
 if s:configuration.enable_bold
-  call s:HL('Function', s:palette.green, s:palette.none, 'bold')
+  call gruvbox_material#highlight('Function', s:palette.green, s:palette.none, 'bold')
 else
-  call s:HL('Function', s:palette.green, s:palette.none)
+  call gruvbox_material#highlight('Function', s:palette.green, s:palette.none)
 endif
-call s:HL('String', s:palette.green, s:palette.none)
-call s:HL('Character', s:palette.green, s:palette.none)
-call s:HL('Constant', s:palette.aqua, s:palette.none)
-call s:HL('Macro', s:palette.aqua, s:palette.none)
-call s:HL('Identifier', s:palette.blue, s:palette.none)
-call s:HL('SpecialKey', s:palette.blue, s:palette.none)
+call gruvbox_material#highlight('String', s:palette.green, s:palette.none)
+call gruvbox_material#highlight('Character', s:palette.green, s:palette.none)
+call gruvbox_material#highlight('Constant', s:palette.aqua, s:palette.none)
+call gruvbox_material#highlight('Macro', s:palette.aqua, s:palette.none)
+call gruvbox_material#highlight('Identifier', s:palette.blue, s:palette.none)
 if s:configuration.disable_italic_comment
-  call s:HL('Comment', s:palette.grey, s:palette.none)
-  call s:HL('SpecialComment', s:palette.grey, s:palette.none)
-  call s:HL('Todo', s:palette.purple, s:palette.none)
+  call gruvbox_material#highlight('Comment', s:palette.grey1, s:palette.none)
+  call gruvbox_material#highlight('SpecialComment', s:palette.grey1, s:palette.none)
+  call gruvbox_material#highlight('Todo', s:palette.purple, s:palette.none)
 else
-  call s:HL('Comment', s:palette.grey, s:palette.none, 'italic')
-  call s:HL('SpecialComment', s:palette.grey, s:palette.none, 'italic')
-  call s:HL('Todo', s:palette.purple, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Comment', s:palette.grey1, s:palette.none, 'italic')
+  call gruvbox_material#highlight('SpecialComment', s:palette.grey1, s:palette.none, 'italic')
+  call gruvbox_material#highlight('Todo', s:palette.purple, s:palette.none, 'italic')
 endif
-call s:HL('Delimiter', s:palette.fg0, s:palette.none)
-call s:HL('Ignore', s:palette.grey, s:palette.none)
-call s:HL('Underlined', s:palette.none, s:palette.none, 'underline')
+call gruvbox_material#highlight('Delimiter', s:palette.fg0, s:palette.none)
+call gruvbox_material#highlight('Ignore', s:palette.grey1, s:palette.none)
+call gruvbox_material#highlight('Underlined', s:palette.none, s:palette.none, 'underline')
 " }}}
 " Predefined Highlight Groups: {{{
-call s:HL('Fg', s:palette.fg0, s:palette.none)
-call s:HL('Grey', s:palette.grey, s:palette.none)
-call s:HL('Yellow', s:palette.yellow, s:palette.none)
-call s:HL('Blue', s:palette.blue, s:palette.none)
+call gruvbox_material#highlight('Fg', s:palette.fg0, s:palette.none)
+call gruvbox_material#highlight('Grey', s:palette.grey1, s:palette.none)
+call gruvbox_material#highlight('Red', s:palette.red, s:palette.none)
+call gruvbox_material#highlight('Orange', s:palette.orange, s:palette.none)
+call gruvbox_material#highlight('Yellow', s:palette.yellow, s:palette.none)
+call gruvbox_material#highlight('Green', s:palette.green, s:palette.none)
+call gruvbox_material#highlight('Aqua', s:palette.aqua, s:palette.none)
+call gruvbox_material#highlight('Blue', s:palette.blue, s:palette.none)
+call gruvbox_material#highlight('Purple', s:palette.purple, s:palette.none)
 if s:configuration.enable_italic
-  call s:HL('RedItalic', s:palette.red, s:palette.none, 'italic')
-  call s:HL('OrangeItalic', s:palette.orange, s:palette.none, 'italic')
-  call s:HL('PurpleItalic', s:palette.purple, s:palette.none, 'italic')
+  call gruvbox_material#highlight('RedItalic', s:palette.red, s:palette.none, 'italic')
+  call gruvbox_material#highlight('OrangeItalic', s:palette.orange, s:palette.none, 'italic')
+  call gruvbox_material#highlight('YellowItalic', s:palette.yellow, s:palette.none, 'italic')
+  call gruvbox_material#highlight('GreenItalic', s:palette.green, s:palette.none, 'italic')
+  call gruvbox_material#highlight('AquaItalic', s:palette.aqua, s:palette.none, 'italic')
+  call gruvbox_material#highlight('BlueItalic', s:palette.blue, s:palette.none, 'italic')
+  call gruvbox_material#highlight('PurpleItalic', s:palette.purple, s:palette.none, 'italic')
 else
-  call s:HL('RedItalic', s:palette.red, s:palette.none)
-  call s:HL('OrangeItalic', s:palette.orange, s:palette.none)
-  call s:HL('PurpleItalic', s:palette.purple, s:palette.none)
+  call gruvbox_material#highlight('RedItalic', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('OrangeItalic', s:palette.orange, s:palette.none)
+  call gruvbox_material#highlight('YellowItalic', s:palette.yellow, s:palette.none)
+  call gruvbox_material#highlight('GreenItalic', s:palette.green, s:palette.none)
+  call gruvbox_material#highlight('AquaItalic', s:palette.aqua, s:palette.none)
+  call gruvbox_material#highlight('BlueItalic', s:palette.blue, s:palette.none)
+  call gruvbox_material#highlight('PurpleItalic', s:palette.purple, s:palette.none)
 endif
-call s:HL('Red', s:palette.red, s:palette.none)
-call s:HL('Orange', s:palette.orange, s:palette.none)
-call s:HL('Purple', s:palette.purple, s:palette.none)
 if s:configuration.enable_bold
-  call s:HL('GreenBold', s:palette.green, s:palette.none, 'bold')
-  call s:HL('AquaBold', s:palette.aqua, s:palette.none, 'bold')
+  call gruvbox_material#highlight('RedBold', s:palette.red, s:palette.none, 'bold')
+  call gruvbox_material#highlight('OrangeBold', s:palette.orange, s:palette.none, 'bold')
+  call gruvbox_material#highlight('YellowBold', s:palette.yellow, s:palette.none, 'bold')
+  call gruvbox_material#highlight('GreenBold', s:palette.green, s:palette.none, 'bold')
+  call gruvbox_material#highlight('AquaBold', s:palette.aqua, s:palette.none, 'bold')
+  call gruvbox_material#highlight('BlueBold', s:palette.blue, s:palette.none, 'bold')
+  call gruvbox_material#highlight('PurpleBold', s:palette.purple, s:palette.none, 'bold')
 else
-  call s:HL('GreenBold', s:palette.green, s:palette.none)
-  call s:HL('AquaBold', s:palette.aqua, s:palette.none)
+  call gruvbox_material#highlight('RedBold', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('OrangeBold', s:palette.orange, s:palette.none)
+  call gruvbox_material#highlight('YellowBold', s:palette.yellow, s:palette.none)
+  call gruvbox_material#highlight('GreenBold', s:palette.green, s:palette.none)
+  call gruvbox_material#highlight('AquaBold', s:palette.aqua, s:palette.none)
+  call gruvbox_material#highlight('BlueBold', s:palette.blue, s:palette.none)
+  call gruvbox_material#highlight('PurpleBold', s:palette.purple, s:palette.none)
 endif
-call s:HL('Green', s:palette.green, s:palette.none)
-call s:HL('Aqua', s:palette.aqua, s:palette.none)
-if s:configuration.transparent_background
-  call s:HL('RedSign', s:palette.red, s:palette.none)
-  call s:HL('OrangeSign', s:palette.orange, s:palette.none)
-  call s:HL('YellowSign', s:palette.yellow, s:palette.none)
-  call s:HL('GreenSign', s:palette.green, s:palette.none)
-  call s:HL('AquaSign', s:palette.aqua, s:palette.none)
-  call s:HL('BlueSign', s:palette.blue, s:palette.none)
-  call s:HL('PurpleSign', s:palette.purple, s:palette.none)
+if s:configuration.transparent_background || s:configuration.sign_column_background !=# 'default'
+  call gruvbox_material#highlight('RedSign', s:palette.red, s:palette.none)
+  call gruvbox_material#highlight('OrangeSign', s:palette.orange, s:palette.none)
+  call gruvbox_material#highlight('YellowSign', s:palette.yellow, s:palette.none)
+  call gruvbox_material#highlight('GreenSign', s:palette.green, s:palette.none)
+  call gruvbox_material#highlight('AquaSign', s:palette.aqua, s:palette.none)
+  call gruvbox_material#highlight('BlueSign', s:palette.blue, s:palette.none)
+  call gruvbox_material#highlight('PurpleSign', s:palette.purple, s:palette.none)
 else
-  call s:HL('RedSign', s:palette.red, s:palette.bg2)
-  call s:HL('OrangeSign', s:palette.orange, s:palette.bg2)
-  call s:HL('YellowSign', s:palette.yellow, s:palette.bg2)
-  call s:HL('GreenSign', s:palette.green, s:palette.bg2)
-  call s:HL('AquaSign', s:palette.aqua, s:palette.bg2)
-  call s:HL('BlueSign', s:palette.blue, s:palette.bg2)
-  call s:HL('PurpleSign', s:palette.purple, s:palette.bg2)
+  call gruvbox_material#highlight('RedSign', s:palette.red, s:palette.bg2)
+  call gruvbox_material#highlight('OrangeSign', s:palette.orange, s:palette.bg2)
+  call gruvbox_material#highlight('YellowSign', s:palette.yellow, s:palette.bg2)
+  call gruvbox_material#highlight('GreenSign', s:palette.green, s:palette.bg2)
+  call gruvbox_material#highlight('AquaSign', s:palette.aqua, s:palette.bg2)
+  call gruvbox_material#highlight('BlueSign', s:palette.blue, s:palette.bg2)
+  call gruvbox_material#highlight('PurpleSign', s:palette.purple, s:palette.bg2)
 endif
+if s:configuration.diagnostic_line_highlight
+  call gruvbox_material#highlight('ErrorLine', s:palette.none, s:palette.bg_visual_red)
+  call gruvbox_material#highlight('WarningLine', s:palette.none, s:palette.bg_visual_yellow)
+  call gruvbox_material#highlight('InfoLine', s:palette.none, s:palette.bg_visual_blue)
+  call gruvbox_material#highlight('HintLine', s:palette.none, s:palette.bg_visual_green)
+else
+  highlight clear ErrorLine
+  highlight clear WarningLine
+  highlight clear InfoLine
+  highlight clear HintLine
+endif
+if s:configuration.current_word ==# 'grey background'
+  call gruvbox_material#highlight('CurrentWord', s:palette.none, s:palette.bg_current_word)
+else
+  call gruvbox_material#highlight('CurrentWord', s:palette.none, s:palette.none, s:configuration.current_word)
+endif
+" }}}
+" }}}
+" Terminal: {{{
+if (has('termguicolors') && &termguicolors) || has('gui_running')
+  " Definition
+  let s:terminal = {
+        \ 'black':    &background ==# 'dark' ? s:palette.bg0 : s:palette.fg0,
+        \ 'red':      s:palette.red,
+        \ 'yellow':   s:palette.yellow,
+        \ 'green':    s:palette.green,
+        \ 'cyan':     s:palette.aqua,
+        \ 'blue':     s:palette.blue,
+        \ 'purple':   s:palette.purple,
+        \ 'white':    &background ==# 'dark' ? s:palette.fg0 : s:palette.bg0
+        \ }
+  " Implementation: {{{
+  if !has('nvim')
+    let g:terminal_ansi_colors = [s:terminal.black[0], s:terminal.red[0], s:terminal.green[0], s:terminal.yellow[0],
+          \ s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0], s:terminal.black[0], s:terminal.red[0],
+          \ s:terminal.green[0], s:terminal.yellow[0], s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0]]
+  else
+    let g:terminal_color_0 = s:terminal.black[0]
+    let g:terminal_color_1 = s:terminal.red[0]
+    let g:terminal_color_2 = s:terminal.green[0]
+    let g:terminal_color_3 = s:terminal.yellow[0]
+    let g:terminal_color_4 = s:terminal.blue[0]
+    let g:terminal_color_5 = s:terminal.purple[0]
+    let g:terminal_color_6 = s:terminal.cyan[0]
+    let g:terminal_color_7 = s:terminal.white[0]
+    let g:terminal_color_8 = s:terminal.black[0]
+    let g:terminal_color_9 = s:terminal.red[0]
+    let g:terminal_color_10 = s:terminal.green[0]
+    let g:terminal_color_11 = s:terminal.yellow[0]
+    let g:terminal_color_12 = s:terminal.blue[0]
+    let g:terminal_color_13 = s:terminal.purple[0]
+    let g:terminal_color_14 = s:terminal.cyan[0]
+    let g:terminal_color_15 = s:terminal.white[0]
+  endif
+  " }}}
+endif
+" }}}
+" Plugins: {{{
+" nvim-treesitter/nvim-treesitter {{{
+highlight! link TSPunctDelimiter Grey
+highlight! link TSPunctBracket Fg
+highlight! link TSPunctSpecial Fg
+highlight! link TSConstant PurpleItalic
+highlight! link TSConstBuiltin PurpleItalic
+highlight! link TSConstMacro Purple
+highlight! link TSString Yellow
+highlight! link TSStringRegex Green
+highlight! link TSStringEscape Green
+highlight! link TSCharacter Yellow
+highlight! link TSNumber Purple
+highlight! link TSBoolean Purple
+highlight! link TSFloat Purple
+highlight! link TSFunction Green
+highlight! link TSFuncBuiltin Green
+highlight! link TSFuncMacro Green
+highlight! link TSParameter Fg
+highlight! link TSMethod Green
+highlight! link TSField Green
+highlight! link TSProperty Green
+highlight! link TSConstructor Fg
+highlight! link TSConditional Red
+highlight! link TSRepeat Red
+highlight! link TSLabel Orange
+highlight! link TSOperator Orange
+highlight! link TSKeyword Red
+highlight! link TSException Red
+highlight! link TSType Aqua
+highlight! link TSTypeBuiltin BlueItalic
+highlight! link TSStructure Orange
+highlight! link TSInclude PurpleItalic
+" }}}
+" neoclide/coc.nvim {{{
+call gruvbox_material#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
+call gruvbox_material#highlight('CocErrorHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+call gruvbox_material#highlight('CocWarningHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
+call gruvbox_material#highlight('CocInfoHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+call gruvbox_material#highlight('CocHintHighlight', s:palette.none, s:palette.none, 'undercurl', s:palette.aqua)
+call gruvbox_material#highlight('CocErrorFloat', s:palette.red, s:palette.bg3)
+call gruvbox_material#highlight('CocWarningFloat', s:palette.yellow, s:palette.bg3)
+call gruvbox_material#highlight('CocInfoFloat', s:palette.blue, s:palette.bg3)
+call gruvbox_material#highlight('CocHintFloat', s:palette.aqua, s:palette.bg3)
+highlight! link CocHighlightText CurrentWord
+highlight! link CocErrorSign RedSign
+highlight! link CocWarningSign YellowSign
+highlight! link CocInfoSign BlueSign
+highlight! link CocHintSign AquaSign
+highlight! link CocWarningVirtualText Grey
+highlight! link CocErrorVirtualText Grey
+highlight! link CocInfoVirtualText Grey
+highlight! link CocHintVirtualText Grey
+highlight! link CocErrorLine ErrorLine
+highlight! link CocWarningLine WarningLine
+highlight! link CocInfoLine InfoLine
+highlight! link CocHintLine HintLine
+highlight! link CocCodeLens Grey
+highlight! link HighlightedyankRegion Visual
+highlight! link CocGitAddedSign GreenSign
+highlight! link CocGitChangeRemovedSign PurpleSign
+highlight! link CocGitChangedSign BlueSign
+highlight! link CocGitRemovedSign RedSign
+highlight! link CocGitTopRemovedSign RedSign
+highlight! link CocExplorerBufferRoot Orange
+highlight! link CocExplorerBufferExpandIcon Aqua
+highlight! link CocExplorerBufferBufnr Purple
+highlight! link CocExplorerBufferModified Red
+highlight! link CocExplorerBufferBufname Grey
+highlight! link CocExplorerBufferFullpath Grey
+highlight! link CocExplorerFileRoot Orange
+highlight! link CocExplorerFileExpandIcon Aqua
+highlight! link CocExplorerFileFullpath Grey
+highlight! link CocExplorerFileDirectory Green
+highlight! link CocExplorerFileGitStage Purple
+highlight! link CocExplorerFileGitUnstage Yellow
+highlight! link CocExplorerFileSize Blue
+highlight! link CocExplorerTimeAccessed Aqua
+highlight! link CocExplorerTimeCreated Aqua
+highlight! link CocExplorerTimeModified Aqua
+" }}}
+" prabirshrestha/vim-lsp {{{
+highlight! link LspErrorVirtual Grey
+highlight! link LspWarningVirtual Grey
+highlight! link LspInformationVirtual Grey
+highlight! link LspHintVirtual Grey
+highlight! link LspErrorHighlight CocErrorHighlight
+highlight! link LspWarningHighlight CocWarningHighlight
+highlight! link LspInformationHighlight CocInfoHighlight
+highlight! link LspHintHighlight CocHintHighlight
+highlight! link lspReference CurrentWord
+" }}}
+" ycm-core/YouCompleteMe {{{
+highlight! link YcmErrorSign RedSign
+highlight! link YcmWarningSign YellowSign
+highlight! link YcmErrorLine ErrorLine
+highlight! link YcmWarningLine WarningLine
+highlight! link YcmErrorSection CocErrorHighlight
+highlight! link YcmWarningSection CocWarningHighlight
+" }}}
+" dense-analysis/ale {{{
+highlight! link ALEError CocErrorHighlight
+highlight! link ALEWarning CocWarningHighlight
+highlight! link ALEInfo CocInfoHighlight
+highlight! link ALEErrorSign RedSign
+highlight! link ALEWarningSign YellowSign
+highlight! link ALEInfoSign BlueSign
+highlight! link ALEErrorLine ErrorLine
+highlight! link ALEWarningLine WarningLine
+highlight! link ALEInfoLine InfoLine
+highlight! link ALEVirtualTextError Grey
+highlight! link ALEVirtualTextWarning Grey
+highlight! link ALEVirtualTextInfo Grey
+highlight! link ALEVirtualTextStyleError Grey
+highlight! link ALEVirtualTextStyleWarning Grey
+" }}}
+" neomake/neomake {{{
+highlight! link NeomakeError ALEError
+highlight! link NeomakeErrorSign RedSign
+highlight! link NeomakeWarning ALEWarning
+highlight! link NeomakeWarningSign YellowSign
+highlight! link NeomakeInfo ALEInfo
+highlight! link NeomakeInfoSign BlueSign
+highlight! link NeomakeMessage Aqua
+highlight! link NeomakeMessageSign AquaSign
+highlight! link NeomakeVirtualtextError Grey
+highlight! link NeomakeVirtualtextWarning Grey
+highlight! link NeomakeVirtualtextInfo Grey
+highlight! link NeomakeVirtualtextMessag Grey
+" }}}
+" vim-syntastic/syntastic {{{
+highlight! link SyntasticError ALEError
+highlight! link SyntasticWarning ALEWarning
+highlight! link SyntasticErrorSign RedSign
+highlight! link SyntasticWarningSign YellowSign
+highlight! link SyntasticErrorLine ErrorLine
+highlight! link SyntasticWarningLine WarningLine
+" }}}
+" Yggdroot/LeaderF {{{
+if !exists('g:Lf_StlColorscheme')
+  let g:Lf_StlColorscheme = 'gruvbox_material'
+endif
+if !exists('g:Lf_PopupColorscheme')
+  let g:Lf_PopupColorscheme = 'gruvbox_material'
+endif
+call gruvbox_material#highlight('Lf_hl_match', s:palette.green, s:palette.none, 'bold')
+call gruvbox_material#highlight('Lf_hl_match0', s:palette.green, s:palette.none, 'bold')
+call gruvbox_material#highlight('Lf_hl_match1', s:palette.aqua, s:palette.none, 'bold')
+call gruvbox_material#highlight('Lf_hl_match2', s:palette.blue, s:palette.none, 'bold')
+call gruvbox_material#highlight('Lf_hl_match3', s:palette.purple, s:palette.none, 'bold')
+call gruvbox_material#highlight('Lf_hl_match4', s:palette.orange, s:palette.none, 'bold')
+call gruvbox_material#highlight('Lf_hl_matchRefine', s:palette.red, s:palette.none, 'bold')
+highlight! link Lf_hl_cursorline Fg
+highlight! link Lf_hl_selection DiffAdd
+highlight! link Lf_hl_rgHighlight Visual
+highlight! link Lf_hl_gtagsHighlight Visual
+" }}}
+" junegunn/fzf.vim {{{
+let g:fzf_colors = {
+      \ 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Green'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Aqua'],
+      \ 'info':    ['fg', 'Aqua'],
+      \ 'prompt':  ['fg', 'Orange'],
+      \ 'pointer': ['fg', 'Blue'],
+      \ 'marker':  ['fg', 'Yellow'],
+      \ 'spinner': ['fg', 'Yellow'],
+      \ 'header':  ['fg', 'Grey']
+      \ }
+" }}}
+" Shougo/denite.nvim {{{
+call gruvbox_material#highlight('deniteMatchedChar', s:palette.green, s:palette.none, 'bold')
+call gruvbox_material#highlight('deniteMatchedRange', s:palette.green, s:palette.none, 'bold,underline')
+call gruvbox_material#highlight('deniteInput', s:palette.green, s:palette.bg4, 'bold')
+call gruvbox_material#highlight('deniteStatusLineNumber', s:palette.purple, s:palette.bg4)
+call gruvbox_material#highlight('deniteStatusLinePath', s:palette.fg0, s:palette.bg4)
+highlight! link deniteSelectedLin Green
+" }}}
+" kien/ctrlp.vim {{{
+call gruvbox_material#highlight('CtrlPMatch', s:palette.green, s:palette.none, 'bold')
+call gruvbox_material#highlight('CtrlPPrtBase', s:palette.bg4, s:palette.none)
+call gruvbox_material#highlight('CtrlPLinePre', s:palette.bg4, s:palette.none)
+call gruvbox_material#highlight('CtrlPMode1', s:palette.blue, s:palette.bg4, 'bold')
+call gruvbox_material#highlight('CtrlPMode2', s:palette.bg0, s:palette.blue, 'bold')
+call gruvbox_material#highlight('CtrlPStats', s:palette.grey2, s:palette.bg4, 'bold')
+highlight! link CtrlPNoEntries Red
+highlight! link CtrlPPrtCursor Blue
+" }}}
+" airblade/vim-gitgutter {{{
+highlight! link GitGutterAdd GreenSign
+highlight! link GitGutterChange BlueSign
+highlight! link GitGutterDelete RedSign
+highlight! link GitGutterChangeDelete PurpleSign
+" }}}
+" mhinz/vim-signify {{{
+highlight! link SignifySignAdd GreenSign
+highlight! link SignifySignChange BlueSign
+highlight! link SignifySignDelete RedSign
+highlight! link SignifySignChangeDelete PurpleSign
+" }}}
+" andymass/vim-matchup {{{
+call gruvbox_material#highlight('MatchParenCur', s:palette.none, s:palette.none, 'bold')
+call gruvbox_material#highlight('MatchWord', s:palette.none, s:palette.none, 'underline')
+call gruvbox_material#highlight('MatchWordCur', s:palette.none, s:palette.none, 'underline')
+" }}}
+" easymotion/vim-easymotion {{{
+highlight! link EasyMotionTarget Search
+highlight! link EasyMotionShade Grey
+" }}}
+" justinmk/vim-sneak {{{
+call gruvbox_material#highlight('SneakLabelMask', s:palette.bg_green, s:palette.bg_green)
+highlight! link Sneak Search
+highlight! link SneakLabel Search
+highlight! link SneakScope DiffText
+" }}}
+" terryma/vim-multiple-cursors {{{
+highlight! link multiple_cursors_cursor Cursor
+highlight! link multiple_cursors_visual Visual
+" }}}
+" mg979/vim-visual-multi {{{
+let g:VM_Mono_hl = 'Cursor'
+let g:VM_Extend_hl = 'Visual'
+let g:VM_Cursor_hl = 'Cursor'
+let g:VM_Insert_hl = 'Cursor'
+" }}}
+" dominikduda/vim_current_word {{{
+highlight! link CurrentWord CurrentWord
+highlight! link CurrentWordTwins CurrentWord
+" }}}
+" RRethy/vim-illuminate {{{
+highlight! link illuminatedWord CurrentWord
+" }}}
+" itchyny/vim-cursorword {{{
+highlight! link CursorWord0 CurrentWord
+highlight! link CursorWord1 CurrentWord
+" }}}
+" Yggdroot/indentLine {{{
+let g:indentLine_color_gui = s:palette.grey0[0]
+let g:indentLine_color_term = s:palette.grey0[1]
+" }}}
+" nathanaelkane/vim-indent-guides {{{
+if get(g:, 'indent_guides_auto_colors', 1) == 0
+  call gruvbox_material#highlight('IndentGuidesOdd', s:palette.bg0, s:palette.bg2)
+  call gruvbox_material#highlight('IndentGuidesEven', s:palette.bg0, s:palette.bg3)
+endif
+" }}}
+" luochen1990/rainbow {{{
+if !exists('g:rbpt_colorpairs')
+  let g:rbpt_colorpairs = [['blue', s:palette.blue[0]], ['magenta', s:palette.purple[0]],
+        \ ['red', s:palette.red[0]], ['166', s:palette.orange[0]]]
+endif
+
+let g:rainbow_guifgs = [ s:palette.orange[0], s:palette.red[0], s:palette.purple[0], s:palette.blue[0] ]
+let g:rainbow_ctermfgs = [ '166', 'red', 'magenta', 'blue' ]
+
+if !exists('g:rainbow_conf')
+  let g:rainbow_conf = {}
+endif
+if !has_key(g:rainbow_conf, 'guifgs')
+  let g:rainbow_conf['guifgs'] = g:rainbow_guifgs
+endif
+if !has_key(g:rainbow_conf, 'ctermfgs')
+  let g:rainbow_conf['ctermfgs'] = g:rainbow_ctermfgs
+endif
+
+let g:niji_dark_colours = g:rbpt_colorpairs
+let g:niji_light_colours = g:rbpt_colorpairs
+" }}}
+" kshenoy/vim-signature {{{
+highlight! link SignatureMarkText BlueSign
+highlight! link SignatureMarkerText PurpleSign
+" }}}
+" ap/vim-buftabline {{{
+highlight! link BufTabLineCurrent TabLineSel
+highlight! link BufTabLineActive TabLine
+highlight! link BufTabLineHidden TabLineFill
+highlight! link BufTabLineFill TabLineFill
+" }}}
+" liuchengxu/vim-which-key {{{
+highlight! link WhichKey Red
+highlight! link WhichKeySeperator Green
+highlight! link WhichKeyGroup Yellow
+highlight! link WhichKeyDesc Blue
+" }}}
+" unblevable/quick-scope {{{
+call gruvbox_material#highlight('QuickScopePrimary', s:palette.aqua, s:palette.none, 'underline')
+call gruvbox_material#highlight('QuickScopeSecondary', s:palette.blue, s:palette.none, 'underline')
+" }}}
+" APZelos/blamer.nvim {{{
+highlight! link Blamer Grey
+" }}}
+" cohama/agit.vim {{{
+highlight! link agitTree Grey
+highlight! link agitDate Green
+highlight! link agitRemote Red
+highlight! link agitHead Orange
+highlight! link agitRef Aqua
+highlight! link agitTag Orange
+highlight! link agitStatFile Blue
+highlight! link agitStatRemoved Red
+highlight! link agitStatAdded Green
+highlight! link agitStatMessage Orange
+highlight! link agitDiffRemove Red
+highlight! link agitDiffAdd Green
+highlight! link agitDiffHeader Purple
+" }}}
+" netrw {{{
+" https://www.vim.org/scripts/script.php?script_id=1075
+highlight! link netrwDir Green
+highlight! link netrwClassify Green
+highlight! link netrwLink Grey
+highlight! link netrwSymLink Fg
+highlight! link netrwExe Yellow
+highlight! link netrwComment Grey
+highlight! link netrwList Aqua
+highlight! link netrwHelpCmd Blue
+highlight! link netrwCmdSep Grey
+highlight! link netrwVersion Orange
 " }}}
 " }}}
 " Extended File Types: {{{
-" Markdown: {{{
+" Note: To ensure that the `s:last_modified` variable is always up to date, you need to copy `.githooks/pre-commit` to `.git/hooks/pre-commit`.
+" Generate the `after/ftplugin` directory based on the comment tags in this file.
+" For example, the content between `ft_begin: sh/zsh` and `ft_end` will be placed in `after/ftplugin/sh/gruvbox_material.vim` and `after/ftplugin/zsh/gruvbox_material.vim`.
+if gruvbox_material#ft_exists(s:path) " If the ftplugin exists.
+  if s:configuration.better_performance
+    if !gruvbox_material#ft_newest(s:path, s:last_modified) " Regenerate if it's not up to date.
+      call gruvbox_material#ft_clean(s:path, 0)
+      call gruvbox_material#ft_gen(s:path, s:last_modified, 'update')
+    endif
+    finish
+  elseif !has('nvim') " Only clean the `after/ftplugin` directory when in vim. This code will produce a bug in neovim.
+    call gruvbox_material#ft_clean(s:path, 1)
+  endif
+else
+  if s:configuration.better_performance
+    call gruvbox_material#ft_gen(s:path, s:last_modified, 'generate')
+    finish
+  endif
+endif
+" ft_begin: vim-plug {{{
+" https://github.com/junegunn/vim-plug
+call gruvbox_material#highlight('plug1', s:palette.orange, s:palette.none, 'bold')
+call gruvbox_material#highlight('plugNumber', s:palette.yellow, s:palette.none, 'bold')
+highlight! link plug2 Green
+highlight! link plugBracket Grey
+highlight! link plugName Aqua
+highlight! link plugDash Orange
+highlight! link plugError Red
+highlight! link plugNotLoaded Grey
+highlight! link plugRelDate Grey
+highlight! link plugH2 Orange
+highlight! link plugMessage Orange
+highlight! link plugStar Red
+highlight! link plugUpdate Blue
+highlight! link plugDeleted Grey
+highlight! link plugEdge Yellow
+highlight! link plugSha Green
+" ft_end }}}
+" ft_begin: tagbar {{{
+" https://github.com/majutsushi/tagbar
+highlight! link TagbarFoldIcon Green
+highlight! link TagbarSignature Green
+highlight! link TagbarKind Red
+highlight! link TagbarScope Orange
+highlight! link TagbarNestedKind Aqua
+highlight! link TagbarVisibilityPrivate Red
+highlight! link TagbarVisibilityPublic Blue
+" ft_end }}}
+" ft_begin: vista/vista_kind/vista_markdown {{{
+" https://github.com/liuchengxu/vista.vim
+highlight! link VistaBracket Grey
+highlight! link VistaChildrenNr Orange
+highlight! link VistaScope Red
+highlight! link VistaTag Green
+highlight! link VistaPrefix Grey
+highlight! link VistaIcon Orange
+highlight! link VistaScopeKind Yellow
+highlight! link VistaColon Grey
+highlight! link VistaLineNr Grey
+highlight! link VistaHeadNr Fg
+highlight! link VistaPublic Green
+highlight! link VistaProtected Yellow
+highlight! link VistaPrivate Red
+" ft_end }}}
+" ft_begin: nerdtree {{{
+" https://github.com/preservim/nerdtree
+highlight! link NERDTreeDir Green
+highlight! link NERDTreeDirSlash Aqua
+highlight! link NERDTreeOpenable Orange
+highlight! link NERDTreeClosable Orange
+highlight! link NERDTreeFile Fg
+highlight! link NERDTreeExecFile Yellow
+highlight! link NERDTreeUp Grey
+highlight! link NERDTreeCWD Aqua
+highlight! link NERDTreeHelp LightGrey
+highlight! link NERDTreeToggleOn Green
+highlight! link NERDTreeToggleOff Red
+highlight! link NERDTreeFlags Orange
+highlight! link NERDTreeLinkFile Grey
+highlight! link NERDTreeLinkTarget Green
+" ft_end }}}
+" ft_begin: dirvish {{{
+" https://github.com/justinmk/vim-dirvish
+highlight! link DirvishPathTail Aqua
+highlight! link DirvishArg Yellow
+" ft_end }}}
+" ft_begin: startify/quickmenu {{{
+" https://github.com/mhinz/vim-startify
+" https://github.com/skywind3000/quickmenu.vim
+highlight! link StartifyBracket Grey
+highlight! link StartifyFile Fg
+highlight! link StartifyNumber Red
+highlight! link StartifyPath Green
+highlight! link StartifySlash Green
+highlight! link StartifySection Blue
+highlight! link StartifyHeader Orange
+highlight! link StartifySpecial Grey
+highlight! link StartifyFooter Grey
+" ft_end }}}
+" ft_begin: quickmenu {{{
+" https://github.com/skywind3000/quickmenu.vim
+highlight! link QuickmenuOption Green
+highlight! link QuickmenuNumber Red
+highlight! link QuickmenuBracket Grey
+highlight! link QuickmenuHelp Green
+highlight! link QuickmenuSpecial Purple
+highlight! link QuickmenuHeader Orange
+" ft_end }}}
+" ft_begin: undotree {{{
+" https://github.com/mbbill/undotree
+call gruvbox_material#highlight('UndotreeSavedBig', s:palette.purple, s:palette.none, 'bold')
+highlight! link UndotreeNode Orange
+highlight! link UndotreeNodeCurrent Red
+highlight! link UndotreeSeq Green
+highlight! link UndotreeNext Blue
+highlight! link UndotreeTimeStamp Grey
+highlight! link UndotreeHead Yellow
+highlight! link UndotreeBranch Yellow
+highlight! link UndotreeCurrent Aqua
+highlight! link UndotreeSavedSmall Purple
+" ft_end }}}
+" ft_begin: markdown {{{
 " builtin: {{{
-call s:HL('markdownH1', s:palette.red, s:palette.none, 'bold')
-call s:HL('markdownH2', s:palette.orange, s:palette.none, 'bold')
-call s:HL('markdownH3', s:palette.yellow, s:palette.none, 'bold')
-call s:HL('markdownH4', s:palette.green, s:palette.none, 'bold')
-call s:HL('markdownH5', s:palette.blue, s:palette.none, 'bold')
-call s:HL('markdownH6', s:palette.purple, s:palette.none, 'bold')
-call s:HL('markdownUrl', s:palette.blue, s:palette.none, 'underline')
-call s:HL('markdownItalic', s:palette.none, s:palette.none, 'italic')
-call s:HL('markdownBold', s:palette.none, s:palette.none, 'bold')
-call s:HL('markdownItalicDelimiter', s:palette.grey, s:palette.none, 'italic')
+call gruvbox_material#highlight('markdownH1', s:palette.red, s:palette.none, 'bold')
+call gruvbox_material#highlight('markdownH2', s:palette.orange, s:palette.none, 'bold')
+call gruvbox_material#highlight('markdownH3', s:palette.yellow, s:palette.none, 'bold')
+call gruvbox_material#highlight('markdownH4', s:palette.green, s:palette.none, 'bold')
+call gruvbox_material#highlight('markdownH5', s:palette.blue, s:palette.none, 'bold')
+call gruvbox_material#highlight('markdownH6', s:palette.purple, s:palette.none, 'bold')
+call gruvbox_material#highlight('markdownUrl', s:palette.blue, s:palette.none, 'underline')
+call gruvbox_material#highlight('markdownItalic', s:palette.none, s:palette.none, 'italic')
+call gruvbox_material#highlight('markdownBold', s:palette.none, s:palette.none, 'bold')
+call gruvbox_material#highlight('markdownItalicDelimiter', s:palette.grey1, s:palette.none, 'italic')
 highlight! link markdownCode Green
 highlight! link markdownCodeBlock Aqua
 highlight! link markdownCodeDelimiter Aqua
@@ -719,10 +807,10 @@ highlight! link markdownIdDeclaration markdownLinkText
 highlight! link markdownBoldDelimiter Grey
 highlight! link markdownId Yellow
 " }}}
-" vim-markdown: https://github.com/gabrielelana/vim-markdown{{{
-call s:HL('mkdURL', s:palette.blue, s:palette.none, 'underline')
-call s:HL('mkdInlineURL', s:palette.purple, s:palette.none, 'underline')
-call s:HL('mkdItalic', s:palette.grey, s:palette.none, 'italic')
+" vim-markdown: https://github.com/gabrielelana/vim-markdown {{{
+call gruvbox_material#highlight('mkdURL', s:palette.blue, s:palette.none, 'underline')
+call gruvbox_material#highlight('mkdInlineURL', s:palette.purple, s:palette.none, 'underline')
+call gruvbox_material#highlight('mkdItalic', s:palette.grey1, s:palette.none, 'italic')
 highlight! link mkdCodeDelimiter Aqua
 highlight! link mkdBold Grey
 highlight! link mkdLink Purple
@@ -732,17 +820,17 @@ highlight! link mkdRule Purple
 highlight! link mkdDelimiter Grey
 highlight! link mkdId Yellow
 " }}}
-" }}}
-" ReStructuredText: {{{
-" builtin: https://github.com/marshallward/vim-restructuredtext{{{
-call s:HL('rstStandaloneHyperlink', s:palette.purple, s:palette.none, 'underline')
+" ft_end }}}
+" ft_begin: rst {{{
+" builtin: https://github.com/marshallward/vim-restructuredtext {{{
+call gruvbox_material#highlight('rstStandaloneHyperlink', s:palette.purple, s:palette.none, 'underline')
 highlight! link rstSubstitutionReference Blue
 highlight! link rstInterpretedTextOrHyperlinkReference Aqua
 highlight! link rstTableLines Grey
 " }}}
-" }}}
-" LaTex: {{{
-" builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_TEX{{{
+" ft_end }}}
+" ft_begin: tex {{{
+" builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_TEX {{{
 highlight! link texStatement Green
 highlight! link texOnlyMath Grey
 highlight! link texDefName Yellow
@@ -753,23 +841,23 @@ highlight! link texBeginEndName Blue
 highlight! link texDocType Purple
 highlight! link texDocTypeArgs Orange
 " }}}
-" }}}
-" Html: {{{
-" builtin: https://notabug.org/jorgesumle/vim-html-syntax{{{
-call s:HL('htmlH1', s:palette.red, s:palette.none, 'bold')
-call s:HL('htmlH2', s:palette.orange, s:palette.none, 'bold')
-call s:HL('htmlH3', s:palette.yellow, s:palette.none, 'bold')
-call s:HL('htmlH4', s:palette.green, s:palette.none, 'bold')
-call s:HL('htmlH5', s:palette.blue, s:palette.none, 'bold')
-call s:HL('htmlH6', s:palette.purple, s:palette.none, 'bold')
-call s:HL('htmlLink', s:palette.none, s:palette.none, 'underline')
-call s:HL('htmlBold', s:palette.none, s:palette.none, 'bold')
-call s:HL('htmlBoldUnderline', s:palette.none, s:palette.none, 'bold,underline')
-call s:HL('htmlBoldItalic', s:palette.none, s:palette.none, 'bold,italic')
-call s:HL('htmlBoldUnderlineItalic', s:palette.none, s:palette.none, 'bold,underline,italic')
-call s:HL('htmlUnderline', s:palette.none, s:palette.none, 'underline')
-call s:HL('htmlUnderlineItalic', s:palette.none, s:palette.none, 'underline,italic')
-call s:HL('htmlItalic', s:palette.none, s:palette.none, 'italic')
+" ft_end }}}
+" ft_begin: html/markdown/javascriptreact/typescriptreact {{{
+" builtin: https://notabug.org/jorgesumle/vim-html-syntax {{{
+call gruvbox_material#highlight('htmlH1', s:palette.red, s:palette.none, 'bold')
+call gruvbox_material#highlight('htmlH2', s:palette.orange, s:palette.none, 'bold')
+call gruvbox_material#highlight('htmlH3', s:palette.yellow, s:palette.none, 'bold')
+call gruvbox_material#highlight('htmlH4', s:palette.green, s:palette.none, 'bold')
+call gruvbox_material#highlight('htmlH5', s:palette.blue, s:palette.none, 'bold')
+call gruvbox_material#highlight('htmlH6', s:palette.purple, s:palette.none, 'bold')
+call gruvbox_material#highlight('htmlLink', s:palette.none, s:palette.none, 'underline')
+call gruvbox_material#highlight('htmlBold', s:palette.none, s:palette.none, 'bold')
+call gruvbox_material#highlight('htmlBoldUnderline', s:palette.none, s:palette.none, 'bold,underline')
+call gruvbox_material#highlight('htmlBoldItalic', s:palette.none, s:palette.none, 'bold,italic')
+call gruvbox_material#highlight('htmlBoldUnderlineItalic', s:palette.none, s:palette.none, 'bold,underline,italic')
+call gruvbox_material#highlight('htmlUnderline', s:palette.none, s:palette.none, 'underline')
+call gruvbox_material#highlight('htmlUnderlineItalic', s:palette.none, s:palette.none, 'underline,italic')
+call gruvbox_material#highlight('htmlItalic', s:palette.none, s:palette.none, 'italic')
 highlight! link htmlTag Green
 highlight! link htmlEndTag Blue
 highlight! link htmlTagN OrangeItalic
@@ -778,9 +866,9 @@ highlight! link htmlArg Aqua
 highlight! link htmlScriptTag Purple
 highlight! link htmlSpecialTagName RedItalic
 " }}}
-" }}}
-" Xml: {{{
-" builtin: https://github.com/chrisbra/vim-xml-ftplugin{{{
+" ft_end }}}
+" ft_begin: xml {{{
+" builtin: https://github.com/chrisbra/vim-xml-ftplugin {{{
 highlight! link xmlTag Green
 highlight! link xmlEndTag Blue
 highlight! link xmlTagName OrangeItalic
@@ -793,9 +881,9 @@ highlight! link xmlDocTypeKeyword PurpleItalic
 highlight! link xmlCdataStart Grey
 highlight! link xmlCdataCdata Purple
 " }}}
-" }}}
-" CSS: {{{
-" builtin: https://github.com/JulesWang/css.vim{{{
+" ft_end }}}
+" ft_begin: css/scss/sass/less {{{
+" builtin: https://github.com/JulesWang/css.vim {{{
 highlight! link cssAttrComma Fg
 highlight! link cssBraces Fg
 highlight! link cssTagName PurpleItalic
@@ -823,8 +911,23 @@ highlight! link cssValueFrequency Green
 highlight! link cssVendor Grey
 highlight! link cssNoise Grey
 " }}}
+" ft_end }}}
+" ft_begin: scss {{{
+" scss-syntax: https://github.com/cakebaker/scss-syntax.vim {{{
+highlight! link scssMixinName Yellow
+highlight! link scssSelectorChar Red
+highlight! link scssSelectorName RedItalic
+highlight! link scssInterpolationDelimiter Green
+highlight! link scssVariableValue Green
+highlight! link scssNull Purple
+highlight! link scssBoolean Purple
+highlight! link scssVariableAssignment Grey
+highlight! link scssForKeyword PurpleItalic
+highlight! link scssAttribute Orange
+highlight! link scssFunctionName Yellow
 " }}}
-" SASS: {{{
+" ft_end }}}
+" ft_begin: sass {{{
 " builtin: {{{
 highlight! link sassProperty Aqua
 highlight! link sassAmpersand Orange
@@ -839,31 +942,18 @@ highlight! link sassControl RedItalic
 highlight! link sassFor RedItalic
 highlight! link sassFunctionName GreenBold
 " }}}
-" scss-syntax: https://github.com/cakebaker/scss-syntax.vim{{{
-highlight! link scssMixinName Yellow
-highlight! link scssSelectorChar Red
-highlight! link scssSelectorName RedItalic
-highlight! link scssInterpolationDelimiter Green
-highlight! link scssVariableValue Green
-highlight! link scssNull Purple
-highlight! link scssBoolean Purple
-highlight! link scssVariableAssignment Grey
-highlight! link scssForKeyword PurpleItalic
-highlight! link scssAttribute Orange
-highlight! link scssFunctionName Yellow
-" }}}
-" }}}
-" LESS: {{{
-" vim-less: https://github.com/groenewege/vim-less{{{
+" ft_end }}}
+" ft_begin: less {{{
+" vim-less: https://github.com/groenewege/vim-less {{{
 highlight! link lessMixinChar Grey
 highlight! link lessClass RedItalic
 highlight! link lessVariable Blue
 highlight! link lessAmpersandChar Orange
 highlight! link lessFunction Yellow
 " }}}
-" }}}
-" JavaScript: {{{
-" builtin: http://www.fleiner.com/vim/syntax/javascript.vim{{{
+" ft_end }}}
+" ft_begin: javascript/javascriptreact {{{
+" builtin: http://www.fleiner.com/vim/syntax/javascript.vim {{{
 highlight! link javaScriptNull Aqua
 highlight! link javaScriptIdentifier Orange
 highlight! link javaScriptParens Fg
@@ -874,7 +964,7 @@ highlight! link javaScriptFunction RedItalic
 highlight! link javaScriptOperator Orange
 highlight! link javaScriptMember Aqua
 " }}}
-" vim-javascript: https://github.com/pangloss/vim-javascript{{{
+" vim-javascript: https://github.com/pangloss/vim-javascript {{{
 highlight! link jsThis Purple
 highlight! link jsUndefined Aqua
 highlight! link jsNull Aqua
@@ -909,7 +999,7 @@ highlight! link jsTemplateExpression Yellow
 highlight! link jsTemplateBraces Yellow
 highlight! link jsClassMethodType Orange
 " }}}
-" yajs: https://github.com/othree/yajs.vim{{{
+" yajs: https://github.com/othree/yajs.vim {{{
 highlight! link javascriptEndColons Fg
 highlight! link javascriptOpSymbol Orange
 highlight! link javascriptOpSymbols Orange
@@ -1041,18 +1131,16 @@ highlight! link javascriptDataViewProp Aqua
 highlight! link javascriptBroadcastProp Aqua
 highlight! link javascriptMathStaticProp Aqua
 " }}}
-" }}}
-" JavaScript React: {{{
-" vim-jsx-pretty: https://github.com/maxmellon/vim-jsx-pretty{{{
+" vim-jsx-pretty: https://github.com/maxmellon/vim-jsx-pretty {{{
 highlight! link jsxTagName OrangeItalic
 highlight! link jsxOpenPunct Green
 highlight! link jsxClosePunct Blue
 highlight! link jsxEscapeJs Blue
 highlight! link jsxAttrib Aqua
 " }}}
-" }}}
-" TypeScript: {{{
-" vim-typescript: https://github.com/leafgarland/typescript-vim{{{
+" ft_end }}}
+" ft_begin: typescript/typescriptreact {{{
+" vim-typescript: https://github.com/leafgarland/typescript-vim {{{
 highlight! link typescriptSource PurpleItalic
 highlight! link typescriptMessage Yellow
 highlight! link typescriptGlobalObjects Aqua
@@ -1061,7 +1149,7 @@ highlight! link typescriptInterpolationDelimiter Yellow
 highlight! link typescriptBraces Fg
 highlight! link typescriptParens Fg
 " }}}
-" yats: https:github.com/HerringtonDarkholme/yats.vim{{{
+" yats: https:github.com/HerringtonDarkholme/yats.vim {{{
 highlight! link typescriptMethodAccessor OrangeItalic
 highlight! link typescriptVariable Orange
 highlight! link typescriptVariableDeclaration Blue
@@ -1204,9 +1292,9 @@ highlight! link typescriptDOMFormProp Aqua
 highlight! link typescriptBOMHistoryProp Aqua
 highlight! link typescriptMathStaticProp Aqua
 " }}}
-" }}}
-" Dart: {{{
-" dart-lang: https://github.com/dart-lang/dart-vim-plugin{{{
+" ft_end }}}
+" ft_begin: dart {{{
+" dart-lang: https://github.com/dart-lang/dart-vim-plugin {{{
 highlight! link dartCoreClasses Aqua
 highlight! link dartTypeName Aqua
 highlight! link dartInterpolation Blue
@@ -1215,9 +1303,9 @@ highlight! link dartClassDecl RedItalic
 highlight! link dartLibrary PurpleItalic
 highlight! link dartMetadata Blue
 " }}}
-" }}}
-" CoffeeScript: {{{
-" vim-coffee-script: https://github.com/kchmck/vim-coffee-script{{{
+" ft_end }}}
+" ft_begin: coffee {{{
+" vim-coffee-script: https://github.com/kchmck/vim-coffee-script {{{
 highlight! link coffeeExtendedOp Orange
 highlight! link coffeeSpecialOp Fg
 highlight! link coffeeDotAccess Grey
@@ -1233,9 +1321,9 @@ highlight! link coffeeSpecialIdent Purple
 highlight! link coffeeObject Purple
 highlight! link coffeeObjAssign Aqua
 " }}}
-" }}}
-" PureScript: {{{
-" purescript-vim: https://github.com/purescript-contrib/purescript-vim{{{
+" ft_end }}}
+" ft_begin: purescript {{{
+" purescript-vim: https://github.com/purescript-contrib/purescript-vim {{{
 highlight! link purescriptModuleKeyword PurpleItalic
 highlight! link purescriptModule Aqua
 highlight! link purescriptModuleParams Blue
@@ -1246,9 +1334,9 @@ highlight! link purescriptIdentifier Blue
 highlight! link purescriptFunction Yellow
 highlight! link purescriptType Aqua
 " }}}
-" }}}
-" C/C++: {{{
-" vim-cpp-enhanced-highlight: https://github.com/octol/vim-cpp-enhanced-highlight{{{
+" ft_end }}}
+" ft_begin: c/cpp/objc/objcpp {{{
+" vim-cpp-enhanced-highlight: https://github.com/octol/vim-cpp-enhanced-highlight {{{
 highlight! link cppSTLnamespace Purple
 highlight! link cppSTLtype Yellow
 highlight! link cppAccess PurpleItalic
@@ -1257,11 +1345,30 @@ highlight! link cppSTLios Aqua
 highlight! link cppSTLiterator PurpleItalic
 highlight! link cppSTLexception Purple
 " }}}
-" vim-cpp-modern: https://github.com/bfrg/vim-cpp-modern{{{
+" vim-cpp-modern: https://github.com/bfrg/vim-cpp-modern {{{
 highlight! link cppSTLVariable Aqua
 " }}}
+" chromatica: https://github.com/arakashic/chromatica.nvim {{{
+highlight! link Member Aqua
+highlight! link Variable Blue
+highlight! link Namespace Purple
+highlight! link EnumConstant Aqua
+highlight! link chromaticaException RedItalic
+highlight! link chromaticaCast Orange
+highlight! link OperatorOverload Orange
+highlight! link AccessQual Orange
+highlight! link Linkage Orange
+highlight! link AutoType Yellow
 " }}}
-" ObjectiveC: {{{
+" vim-lsp-cxx-highlight https://github.com/jackguo380/vim-lsp-cxx-highlight {{{
+highlight! link LspCxxHlSkippedRegion Grey
+highlight! link LspCxxHlSkippedRegionBeginEnd PurpleItalic
+highlight! link LspCxxHlGroupEnumConstant Aqua
+highlight! link LspCxxHlGroupNamespace Purple
+highlight! link LspCxxHlGroupMemberVariable Aqua
+" }}}
+" ft_end }}}
+" ft_begin: objc {{{
 " builtin: {{{
 highlight! link objcModuleImport PurpleItalic
 highlight! link objcException RedItalic
@@ -1271,9 +1378,9 @@ highlight! link objcDirective RedItalic
 highlight! link objcPropertyAttribute Orange
 highlight! link objcHiddenArgument Aqua
 " }}}
-" }}}
-" C#: {{{
-" builtin: https://github.com/nickspoons/vim-cs{{{
+" ft_end }}}
+" ft_begin: cs {{{
+" builtin: https://github.com/nickspoons/vim-cs {{{
 highlight! link csUnspecifiedStatement PurpleItalic
 highlight! link csStorage RedItalic
 highlight! link csClass RedItalic
@@ -1283,14 +1390,14 @@ highlight! link csInterpolationDelimiter Yellow
 highlight! link csInterpolation Yellow
 highlight! link csEndColon Fg
 " }}}
-" }}}
-" Python: {{{
+" ft_end }}}
+" ft_begin: python {{{
 " builtin: {{{
 highlight! link pythonBuiltin Yellow
 highlight! link pythonExceptions Purple
 highlight! link pythonDecoratorName Blue
 " }}}
-" python-syntax: https://github.com/vim-python/python-syntax{{{
+" python-syntax: https://github.com/vim-python/python-syntax {{{
 highlight! link pythonExClass Purple
 highlight! link pythonBuiltinType Yellow
 highlight! link pythonBuiltinObj Blue
@@ -1309,15 +1416,30 @@ highlight! link pythonException RedItalic
 highlight! link pythonNone Aqua
 highlight! link pythonDot Grey
 " }}}
+" semshi: https://github.com/numirias/semshi {{{
+call gruvbox_material#highlight('semshiUnresolved', s:palette.yellow, s:palette.none, 'undercurl')
+highlight! link semshiImported Purple
+highlight! link semshiParameter Blue
+highlight! link semshiParameterUnused Grey
+highlight! link semshiSelf PurpleItalic
+highlight! link semshiGlobal Yellow
+highlight! link semshiBuiltin Yellow
+highlight! link semshiAttribute Aqua
+highlight! link semshiLocal Red
+highlight! link semshiFree Red
+highlight! link semshiSelected CurrentWord
+highlight! link semshiErrorSign RedSign
+highlight! link semshiErrorChar RedSign
 " }}}
-" Lua: {{{
+" ft_end }}}
+" ft_begin: lua {{{
 " builtin: {{{
 highlight! link luaFunc GreenBold
 highlight! link luaFunction Aqua
 highlight! link luaTable Fg
 highlight! link luaIn RedItalic
 " }}}
-" vim-lua: https://github.com/tbastos/vim-lua{{{
+" vim-lua: https://github.com/tbastos/vim-lua {{{
 highlight! link luaFuncCall GreenBold
 highlight! link luaLocal Orange
 highlight! link luaSpecialValue GreenBold
@@ -1330,9 +1452,9 @@ highlight! link luaFuncArgName Blue
 highlight! link luaEllipsis Orange
 highlight! link luaDocTag Green
 " }}}
-" }}}
-" Moonscript: {{{
-" moonscript-vim: https://github.com/leafo/moonscript-vim{{{
+" ft_end }}}
+" ft_begin: moon {{{
+" moonscript-vim: https://github.com/leafo/moonscript-vim {{{
 highlight! link moonInterpDelim Yellow
 highlight! link moonInterp Blue
 highlight! link moonFunction Green
@@ -1341,8 +1463,8 @@ highlight! link moonSpecialVar Purple
 highlight! link moonObject Yellow
 highlight! link moonDotAccess Grey
 " }}}
-" }}}
-" Java: {{{
+" ft_end }}}
+" ft_begin: java {{{
 " builtin: {{{
 highlight! link javaClassDecl RedItalic
 highlight! link javaMethodDecl RedItalic
@@ -1357,18 +1479,18 @@ highlight! link javaParen3 Fg
 highlight! link javaParen4 Fg
 highlight! link javaParen5 Fg
 " }}}
-" }}}
-" Kotlin: {{{
-" kotlin-vim: https://github.com/udalov/kotlin-vim{{{
+" ft_end }}}
+" ft_begin: kotlin {{{
+" kotlin-vim: https://github.com/udalov/kotlin-vim {{{
 highlight! link ktSimpleInterpolation Yellow
 highlight! link ktComplexInterpolation Yellow
 highlight! link ktComplexInterpolationBrace Yellow
 highlight! link ktStructure RedItalic
 highlight! link ktKeyword Aqua
 " }}}
-" }}}
-" Scala: {{{
-" builtin: https://github.com/derekwyatt/vim-scala{{{
+" ft_end }}}
+" ft_begin: scala {{{
+" builtin: https://github.com/derekwyatt/vim-scala {{{
 highlight! link scalaNameDefinition Aqua
 highlight! link scalaInterpolationBoundary Yellow
 highlight! link scalaInterpolation Blue
@@ -1376,9 +1498,9 @@ highlight! link scalaTypeOperator Orange
 highlight! link scalaOperator Orange
 highlight! link scalaKeywordModifier Orange
 " }}}
-" }}}
-" Go: {{{
-" builtin: https://github.com/google/vim-ft-go{{{
+" ft_end }}}
+" ft_begin: go {{{
+" builtin: https://github.com/google/vim-ft-go {{{
 highlight! link goDirective PurpleItalic
 highlight! link goConstants Aqua
 highlight! link goDeclType OrangeItalic
@@ -1391,9 +1513,9 @@ highlight! link goBuiltins GreenBold
 highlight! link goPredefinedIdentifiers Aqua
 highlight! link goVar Orange
 " }}}
-" }}}
-" Rust: {{{
-" builtin: https://github.com/rust-lang/rust.vim{{{
+" ft_end }}}
+" ft_begin: rust {{{
+" builtin: https://github.com/rust-lang/rust.vim {{{
 highlight! link rustStructure Orange
 highlight! link rustIdentifier Purple
 highlight! link rustModPath Orange
@@ -1407,18 +1529,18 @@ highlight! link rustAssert Aqua
 highlight! link rustPanic Aqua
 highlight! link rustPubScopeCrate PurpleItalic
 " }}}
-" }}}
-" Swift: {{{
-" swift.vim: https://github.com/keith/swift.vim{{{
+" ft_end }}}
+" ft_begin: swift {{{
+" swift.vim: https://github.com/keith/swift.vim {{{
 highlight! link swiftInterpolatedWrapper Yellow
 highlight! link swiftInterpolatedString Blue
 highlight! link swiftProperty Aqua
 highlight! link swiftTypeDeclaration Orange
 highlight! link swiftClosureArgument Purple
 " }}}
-" }}}
-" PHP: {{{
-" builtin: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD{{{
+" ft_end }}}
+" ft_begin: php {{{
+" builtin: https://jasonwoof.com/gitweb/?p=vim-syntax.git;a=blob;f=php.vim;hb=HEAD {{{
 highlight! link phpVarSelector Blue
 highlight! link phpDefine OrangeItalic
 highlight! link phpStructure RedItalic
@@ -1428,7 +1550,7 @@ highlight! link phpComparison Orange
 highlight! link phpMethodsVar Aqua
 highlight! link phpMemberSelector Green
 " }}}
-" php.vim: https://github.com/StanAngeloff/php.vim{{{
+" php.vim: https://github.com/StanAngeloff/php.vim {{{
 highlight! link phpParent Fg
 highlight! link phpNowDoc Green
 highlight! link phpFunction GreenBold
@@ -1436,9 +1558,9 @@ highlight! link phpMethod GreenBold
 highlight! link phpClass Orange
 highlight! link phpSuperglobals Purple
 " }}}
-" }}}
-" Ruby: {{{
-" builtin: https://github.com/vim-ruby/vim-ruby{{{
+" ft_end }}}
+" ft_begin: ruby {{{
+" builtin: https://github.com/vim-ruby/vim-ruby {{{
 highlight! link rubyKeywordAsMethod GreenBold
 highlight! link rubyInterpolation Yellow
 highlight! link rubyInterpolationDelimiter Yellow
@@ -1450,9 +1572,9 @@ highlight! link rubyAccess Orange
 highlight! link rubyAttribute Yellow
 highlight! link rubyMacro RedItalic
 " }}}
-" }}}
-" Haskell: {{{
-" haskell-vim: https://github.com/neovimhaskell/haskell-vim{{{
+" ft_end }}}
+" ft_begin: haskell {{{
+" haskell-vim: https://github.com/neovimhaskell/haskell-vim {{{
 highlight! link haskellBrackets Blue
 highlight! link haskellIdentifier Yellow
 highlight! link haskellAssocType Aqua
@@ -1463,9 +1585,9 @@ highlight! link haskellWhere RedItalic
 highlight! link haskellDeriving PurpleItalic
 highlight! link haskellForeignKeywords PurpleItalic
 " }}}
-" }}}
-" Perl: {{{
-" builtin: https://github.com/vim-perl/vim-perl{{{
+" ft_end }}}
+" ft_begin: perl/pod {{{
+" builtin: https://github.com/vim-perl/vim-perl {{{
 highlight! link perlStatementPackage PurpleItalic
 highlight! link perlStatementInclude PurpleItalic
 highlight! link perlStatementStorage Orange
@@ -1477,9 +1599,9 @@ highlight! link perlMethod GreenBold
 highlight! link podVerbatimLine Green
 highlight! link podCmdText Yellow
 " }}}
-" }}}
-" OCaml: {{{
-" builtin: https://github.com/rgrinberg/vim-ocaml{{{
+" ft_end }}}
+" ft_begin: ocaml {{{
+" builtin: https://github.com/rgrinberg/vim-ocaml {{{
 highlight! link ocamlArrow Orange
 highlight! link ocamlEqual Orange
 highlight! link ocamlOperator Orange
@@ -1499,9 +1621,9 @@ highlight! link ocamlSigEncl Orange
 highlight! link ocamlStructEncl Aqua
 highlight! link ocamlModParam1 Blue
 " }}}
-" }}}
-" Erlang: {{{
-" builtin: https://github.com/vim-erlang/vim-erlang-runtime{{{
+" ft_end }}}
+" ft_begin: erlang {{{
+" builtin: https://github.com/vim-erlang/vim-erlang-runtime {{{
 highlight! link erlangAtom Aqua
 highlight! link erlangLocalFuncRef GreenBold
 highlight! link erlangLocalFuncCall GreenBold
@@ -1510,9 +1632,9 @@ highlight! link erlangGlobalFuncCall GreenBold
 highlight! link erlangAttribute PurpleItalic
 highlight! link erlangPipe Orange
 " }}}
-" }}}
-" Elixir: {{{
-" vim-elixir: https://github.com/elixir-editors/vim-elixir{{{
+" ft_end }}}
+" ft_begin: elixir {{{
+" vim-elixir: https://github.com/elixir-editors/vim-elixir {{{
 highlight! link elixirStringDelimiter Green
 highlight! link elixirKeyword Orange
 highlight! link elixirInterpolation Yellow
@@ -1538,16 +1660,16 @@ highlight! link elixirCallbackDefine RedItalic
 highlight! link elixirStructDefine RedItalic
 highlight! link elixirExUnitMacro RedItalic
 " }}}
-" }}}
-" Common Lisp: {{{
-" builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_LISP{{{
+" ft_end }}}
+" ft_begin: lisp {{{
+" builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_LISP {{{
 highlight! link lispAtomMark Green
 highlight! link lispKey Aqua
 highlight! link lispFunc OrangeItalic
 " }}}
-" }}}
-" Clojure: {{{
-" builtin: https://github.com/guns/vim-clojure-static{{{
+" ft_end }}}
+" ft_begin: clojure {{{
+" builtin: https://github.com/guns/vim-clojure-static {{{
 highlight! link clojureMacro PurpleItalic
 highlight! link clojureFunc AquaBold
 highlight! link clojureConstant Yellow
@@ -1558,9 +1680,23 @@ highlight! link clojureVariable Blue
 highlight! link clojureMeta Yellow
 highlight! link clojureDeref Yellow
 " }}}
+" ft_end }}}
+" ft_begin: matlab {{{
+" builtin: {{{
+highlight! link matlabSemicolon Fg
+highlight! link matlabFunction RedItalic
+highlight! link matlabImplicit GreenBold
+highlight! link matlabDelimiter Fg
+highlight! link matlabOperator GreenBold
+highlight! link matlabArithmeticOperator Orange
+highlight! link matlabArithmeticOperator Orange
+highlight! link matlabRelationalOperator Orange
+highlight! link matlabRelationalOperator Orange
+highlight! link matlabLogicalOperator Orange
 " }}}
-" Shell: {{{
-" builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_SH{{{
+" ft_end }}}
+" ft_begin: sh/zsh {{{
+" builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_SH {{{
 highlight! link shRange Fg
 highlight! link shTestOpr Orange
 highlight! link shOption Aqua
@@ -1577,9 +1713,9 @@ highlight! link shCommandSub Orange
 highlight! link shFunctionOne GreenBold
 highlight! link shFunctionKey RedItalic
 " }}}
-" }}}
-" Zsh: {{{
-" builtin: https://github.com/chrisbra/vim-zsh{{{
+" ft_end }}}
+" ft_begin: zsh {{{
+" builtin: https://github.com/chrisbra/vim-zsh {{{
 highlight! link zshOptStart PurpleItalic
 highlight! link zshOption Blue
 highlight! link zshSubst Yellow
@@ -1588,23 +1724,24 @@ highlight! link zshDeref Blue
 highlight! link zshTypes Orange
 highlight! link zshVariableDef Blue
 " }}}
-" }}}
-" Fish: {{{
-" vim-fish: https://github.com/georgewitteman/vim-fish{{{
+" ft_end }}}
+" ft_begin: fish {{{
+" vim-fish: https://github.com/georgewitteman/vim-fish {{{
 highlight! link fishStatement Orange
 highlight! link fishLabel RedItalic
 highlight! link fishCommandSub Yellow
 " }}}
-" }}}
-" PowerShell: {{{
-" vim-ps1: https://github.com/PProvost/vim-ps1{{{
+" ft_end }}}
+" ft_begin: ps1 {{{
+" vim-ps1: https://github.com/PProvost/vim-ps1 {{{
 highlight! link ps1FunctionInvocation AquaBold
 highlight! link ps1FunctionDeclaration AquaBold
 highlight! link ps1InterpolationDelimiter Yellow
 highlight! link ps1BuiltIn Yellow
 " }}}
-" }}}
-" VimL: {{{
+" ft_end }}}
+" ft_begin: vim {{{
+call gruvbox_material#highlight('vimCommentTitle', s:palette.grey1, s:palette.none, 'bold')
 highlight! link vimLet Orange
 highlight! link vimFunction GreenBold
 highlight! link vimIsCommand Fg
@@ -1622,14 +1759,17 @@ highlight! link vimUserAttrb Green
 highlight! link vimAutoCmdSfxList Aqua
 highlight! link vimSynType Orange
 highlight! link vimHiBang Orange
-" }}}
-" Makefile: {{{
+highlight! link vimSet Yellow
+highlight! link vimSetSep Grey
+highlight! link vimContinue Grey
+" ft_end }}}
+" ft_begin: make {{{
 highlight! link makeIdent Aqua
 highlight! link makeSpecTarget Yellow
 highlight! link makeTarget Blue
 highlight! link makeCommands Orange
-" }}}
-" CMake: {{{
+" ft_end }}}
+" ft_begin: cmake {{{
 highlight! link cmakeCommand Orange
 highlight! link cmakeKWconfigure_package_config_file Yellow
 highlight! link cmakeKWwrite_basic_package_version_file Yellow
@@ -1734,23 +1874,23 @@ highlight! link cmakeKWuse_mangled_mesa Aqua
 highlight! link cmakeKWvariable_requires Aqua
 highlight! link cmakeKWvariable_watch Aqua
 highlight! link cmakeKWwrite_file Aqua
-" }}}
-" Json: {{{
+" ft_end }}}
+" ft_begin: json {{{
 highlight! link jsonKeyword Orange
 highlight! link jsonQuote Grey
 highlight! link jsonBraces Fg
-" }}}
-" Yaml: {{{
+" ft_end }}}
+" ft_begin: yaml {{{
 highlight! link yamlKey Orange
 highlight! link yamlConstant Purple
-" }}}
-" Toml: {{{
-call s:HL('tomlTable', s:palette.purple, s:palette.none, 'bold')
+" ft_end }}}
+" ft_begin: toml {{{
+call gruvbox_material#highlight('tomlTable', s:palette.purple, s:palette.none, 'bold')
 highlight! link tomlKey Orange
 highlight! link tomlBoolean Aqua
 highlight! link tomlTableArray tomlTable
-" }}}
-" Diff: {{{
+" ft_end }}}
+" ft_begin: diff/git {{{
 highlight! link diffAdded Green
 highlight! link diffRemoved Red
 highlight! link diffChanged Blue
@@ -1759,406 +1899,35 @@ highlight! link diffNewFile Orange
 highlight! link diffFile Aqua
 highlight! link diffLine Grey
 highlight! link diffIndexLine Purple
-" }}}
-" Help: {{{
-call s:HL('helpNote', s:palette.purple, s:palette.none, 'bold')
-call s:HL('helpHeadline', s:palette.red, s:palette.none, 'bold')
-call s:HL('helpHeader', s:palette.orange, s:palette.none, 'bold')
-call s:HL('helpURL', s:palette.green, s:palette.none, 'underline')
-call s:HL('helpHyperTextEntry', s:palette.yellow, s:palette.none, 'bold')
+" ft_end }}}
+" ft_begin: gitcommit {{{
+highlight! link gitcommitSummary Red
+highlight! link gitcommitUntracked Grey
+highlight! link gitcommitDiscarded Grey
+highlight! link gitcommitSelected Grey
+highlight! link gitcommitUnmerged Grey
+highlight! link gitcommitOnBranch Grey
+highlight! link gitcommitArrow Grey
+highlight! link gitcommitFile Green
+" ft_end }}}
+" ft_begin: dosini {{{
+call gruvbox_material#highlight('dosiniHeader', s:palette.red, s:palette.none, 'bold')
+highlight! link dosiniLabel Yellow
+highlight! link dosiniValue Green
+highlight! link dosiniNumber Green
+" ft_end }}}
+" ft_begin: help {{{
+call gruvbox_material#highlight('helpNote', s:palette.purple, s:palette.none, 'bold')
+call gruvbox_material#highlight('helpHeadline', s:palette.red, s:palette.none, 'bold')
+call gruvbox_material#highlight('helpHeader', s:palette.orange, s:palette.none, 'bold')
+call gruvbox_material#highlight('helpURL', s:palette.green, s:palette.none, 'underline')
+call gruvbox_material#highlight('helpHyperTextEntry', s:palette.yellow, s:palette.none, 'bold')
 highlight! link helpHyperTextJump Yellow
 highlight! link helpCommand Aqua
 highlight! link helpExample Green
 highlight! link helpSpecial Blue
 highlight! link helpSectionDelim Grey
-" }}}
-" }}}
-" Plugins: {{{
-" junegunn/vim-plug{{{
-call s:HL('plug1', s:palette.orange, s:palette.none, 'bold')
-call s:HL('plugNumber', s:palette.yellow, s:palette.none, 'bold')
-highlight! link plug2 Green
-highlight! link plugBracket Grey
-highlight! link plugName Aqua
-highlight! link plugDash Orange
-highlight! link plugError Red
-highlight! link plugNotLoaded Grey
-highlight! link plugRelDate Grey
-highlight! link plugH2 Orange
-highlight! link plugMessage Orange
-highlight! link plugStar Red
-highlight! link plugUpdate Blue
-highlight! link plugDeleted Grey
-highlight! link plugEdge Yellow
-highlight! link plugSha Green
-" }}}
-" neoclide/coc.nvim{{{
-call s:HL('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
-if s:configuration.current_word ==# 'bold'
-  call s:HL('CocHighlightText', s:palette.none, s:palette.none, 'bold')
-elseif s:configuration.current_word ==# 'underline'
-  call s:HL('CocHighlightText', s:palette.none, s:palette.none, 'underline')
-elseif s:configuration.current_word ==# 'italic'
-  call s:HL('CocHighlightText', s:palette.none, s:palette.none, 'italic')
-elseif s:configuration.current_word ==# 'grey background'
-  if s:configuration.background ==# 'hard'
-    if &background ==# 'dark'
-      hi CocHighlightText guibg=#32302f ctermbg=236
-    else
-      hi CocHighlightText guibg=#f3eac7 ctermbg=229
-    endif
-  elseif s:configuration.background ==# 'medium'
-    if &background ==# 'dark'
-      hi CocHighlightText guibg=#3c3836 ctermbg=237
-    else
-      hi CocHighlightText guibg=#f2e5bc ctermbg=228
-    endif
-  elseif s:configuration.background ==# 'soft'
-    if &background ==# 'dark'
-      hi CocHighlightText guibg=#45403d ctermbg=238
-    else
-      hi CocHighlightText guibg=#ebdbb2 ctermbg=227
-    endif
-  endif
-endif
-highlight! link CocErrorSign RedSign
-highlight! link CocWarningSign YellowSign
-highlight! link CocInfoSign BlueSign
-highlight! link CocHintSign AquaSign
-highlight! link CocErrorHighlight ALEError
-highlight! link CocWarningHighlight ALEWarning
-highlight! link CocInfoHighlight ALEInfo
-highlight! link CocWarningVirtualText Grey
-highlight! link CocErrorVirtualText Grey
-highlight! link CocInfoVirtualText Grey
-highlight! link CocHintVirtualText Grey
-highlight! link CocCodeLens Grey
-highlight! link HighlightedyankRegion Visual
-highlight! link CocGitAddedSign GreenSign
-highlight! link CocGitChangeRemovedSign PurpleSign
-highlight! link CocGitChangedSign BlueSign
-highlight! link CocGitRemovedSign RedSign
-highlight! link CocGitTopRemovedSign RedSign
-highlight! link CocExplorerBufferRoot Orange
-highlight! link CocExplorerBufferExpandIcon Aqua
-highlight! link CocExplorerBufferBufnr Purple
-highlight! link CocExplorerBufferModified Red
-highlight! link CocExplorerBufferBufname Grey
-highlight! link CocExplorerFileRoot Orange
-highlight! link CocExplorerFileExpandIcon Aqua
-highlight! link CocExplorerFileFullpath Aqua
-highlight! link CocExplorerFileDirectory Green
-highlight! link CocExplorerFileGitStage Purple
-highlight! link CocExplorerFileGitUnstage Yellow
-highlight! link CocExplorerFileSize Blue
-highlight! link CocExplorerTimeAccessed Aqua
-highlight! link CocExplorerTimeCreated Aqua
-highlight! link CocExplorerTimeModified Aqua
-" }}}
-" dense-analysis/ale{{{
-call s:HL('ALEError', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
-call s:HL('ALEWarning', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
-call s:HL('ALEInfo', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
-highlight! link ALEErrorSign RedSign
-highlight! link ALEWarningSign YellowSign
-highlight! link ALEInfoSign BlueSign
-highlight! link ALEVirtualTextError Grey
-highlight! link ALEVirtualTextWarning Grey
-highlight! link ALEVirtualTextInfo Grey
-highlight! link ALEVirtualTextStyleError Grey
-highlight! link ALEVirtualTextStyleWarning Grey
-" }}}
-" neomake/neomake{{{
-highlight! link NeomakeError ALEError
-highlight! link NeomakeErrorSign RedSign
-highlight! link NeomakeWarning ALEWarning
-highlight! link NeomakeWarningSign YellowSign
-highlight! link NeomakeInfo ALEInfo
-highlight! link NeomakeInfoSign BlueSign
-highlight! link NeomakeMessage Aqua
-highlight! link NeomakeMessageSign AquaSign
-highlight! link NeomakeVirtualtextError Grey
-highlight! link NeomakeVirtualtextWarning Grey
-highlight! link NeomakeVirtualtextInfo Grey
-highlight! link NeomakeVirtualtextMessag Grey
-" }}}
-" vim-syntastic/syntastic{{{
-highlight! link SyntasticError ALEError
-highlight! link SyntasticWarning ALEWarning
-highlight! link SyntasticErrorSign RedSign
-highlight! link SyntasticWarningSign YellowSign
-" }}}
-" Yggdroot/LeaderF{{{
-if !exists('g:Lf_StlColorscheme')
-  let g:Lf_StlColorscheme = 'gruvbox_material'
-endif
-if !exists('g:Lf_PopupColorscheme')
-  let g:Lf_PopupColorscheme = 'gruvbox_material'
-endif
-call s:HL('Lf_hl_match', s:palette.green, s:palette.none, 'bold')
-call s:HL('Lf_hl_match0', s:palette.green, s:palette.none, 'bold')
-call s:HL('Lf_hl_match1', s:palette.aqua, s:palette.none, 'bold')
-call s:HL('Lf_hl_match2', s:palette.blue, s:palette.none, 'bold')
-call s:HL('Lf_hl_match3', s:palette.purple, s:palette.none, 'bold')
-call s:HL('Lf_hl_match4', s:palette.orange, s:palette.none, 'bold')
-call s:HL('Lf_hl_matchRefine', s:palette.red, s:palette.none, 'bold')
-highlight! link Lf_hl_cursorline Fg
-highlight! link Lf_hl_selection DiffAdd
-highlight! link Lf_hl_rgHighlight Visual
-highlight! link Lf_hl_gtagsHighlight Visual
-" }}}
-" junegunn/fzf.vim{{{
-let g:fzf_colors = {
-      \ 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Green'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Aqua'],
-      \ 'info':    ['fg', 'Aqua'],
-      \ 'prompt':  ['fg', 'Orange'],
-      \ 'pointer': ['fg', 'Blue'],
-      \ 'marker':  ['fg', 'Yellow'],
-      \ 'spinner': ['fg', 'Yellow'],
-      \ 'header':  ['fg', 'Grey']
-      \ }
-" }}}
-" Shougo/denite.nvim{{{
-call s:HL('deniteMatchedChar', s:palette.green, s:palette.none, 'bold')
-call s:HL('deniteMatchedRange', s:palette.green, s:palette.none, 'bold,underline')
-call s:HL('deniteInput', s:palette.green, s:palette.bg4, 'bold')
-call s:HL('deniteStatusLineNumber', s:palette.purple, s:palette.bg4)
-call s:HL('deniteStatusLinePath', s:palette.fg0, s:palette.bg4)
-highlight! link deniteSelectedLin Green
-" }}}
-" kien/ctrlp.vim{{{
-call s:HL('CtrlPMatch', s:palette.green, s:palette.none, 'bold')
-call s:HL('CtrlPPrtBase', s:palette.bg4, s:palette.none)
-call s:HL('CtrlPLinePre', s:palette.bg4, s:palette.none)
-call s:HL('CtrlPMode1', s:palette.blue, s:palette.bg4, 'bold')
-call s:HL('CtrlPMode2', s:palette.bg0, s:palette.blue, 'bold')
-call s:HL('CtrlPStats', s:palette.bg_grey1, s:palette.bg4, 'bold')
-highlight! link CtrlPNoEntries Red
-highlight! link CtrlPPrtCursor Blue
-" }}}
-" majutsushi/tagbar{{{
-highlight! link TagbarFoldIcon Green
-highlight! link TagbarSignature Green
-highlight! link TagbarKind Red
-highlight! link TagbarScope Orange
-highlight! link TagbarNestedKind Aqua
-highlight! link TagbarVisibilityPrivate Red
-highlight! link TagbarVisibilityPublic Blue
-" }}}
-" liuchengxu/vista.vim{{{
-highlight! link VistaBracket Grey
-highlight! link VistaChildrenNr Orange
-highlight! link VistaScope Red
-highlight! link VistaTag Green
-highlight! link VistaPrefix Grey
-highlight! link VistaColon Green
-highlight! link VistaIcon Purple
-highlight! link VistaLineNr Fg
-" }}}
-" airblade/vim-gitgutter{{{
-highlight! link GitGutterAdd GreenSign
-highlight! link GitGutterChange BlueSign
-highlight! link GitGutterDelete RedSign
-highlight! link GitGutterChangeDelete PurpleSign
-" }}}
-" mhinz/vim-signify{{{
-highlight! link SignifySignAdd GreenSign
-highlight! link SignifySignChange BlueSign
-highlight! link SignifySignDelete RedSign
-highlight! link SignifySignChangeDelete PurpleSign
-" }}}
-" scrooloose/nerdtree{{{
-highlight! link NERDTreeDir Green
-highlight! link NERDTreeDirSlash Aqua
-highlight! link NERDTreeOpenable Orange
-highlight! link NERDTreeClosable Orange
-highlight! link NERDTreeFile Fg
-highlight! link NERDTreeExecFile Yellow
-highlight! link NERDTreeUp Grey
-highlight! link NERDTreeCWD Aqua
-highlight! link NERDTreeHelp LightGrey
-highlight! link NERDTreeToggleOn Green
-highlight! link NERDTreeToggleOff Red
-highlight! link NERDTreeFlags Orange
-highlight! link NERDTreeLinkFile Grey
-highlight! link NERDTreeLinkTarget Green
-" }}}
-" justinmk/vim-dirvish{{{
-highlight! link DirvishPathTail Aqua
-highlight! link DirvishArg Yellow
-" }}}
-" vim.org/netrw {{{
-" https://www.vim.org/scripts/script.php?script_id=1075
-highlight! link netrwDir Green
-highlight! link netrwClassify Green
-highlight! link netrwLink Grey
-highlight! link netrwSymLink Fg
-highlight! link netrwExe Yellow
-highlight! link netrwComment Grey
-highlight! link netrwList Aqua
-highlight! link netrwHelpCmd Blue
-highlight! link netrwCmdSep Grey
-highlight! link netrwVersion Orange
-" }}}
-" andymass/vim-matchup{{{
-call s:HL('MatchParenCur', s:palette.none, s:palette.none, 'bold')
-call s:HL('MatchWord', s:palette.none, s:palette.none, 'underline')
-call s:HL('MatchWordCur', s:palette.none, s:palette.none, 'underline')
-" }}}
-" easymotion/vim-easymotion {{{
-highlight! link EasyMotionTarget Search
-highlight! link EasyMotionShade Comment
-" }}}
-" justinmk/vim-sneak {{{
-highlight! link Sneak Cursor
-highlight! link SneakLabel Cursor
-highlight! link SneakScope DiffChange
-" }}}
-" terryma/vim-multiple-cursors{{{
-highlight! link multiple_cursors_cursor Cursor
-highlight! link multiple_cursors_visual Visual
-" }}}
-" mg979/vim-visual-multi{{{
-let g:VM_Mono_hl = 'Cursor'
-let g:VM_Extend_hl = 'Visual'
-let g:VM_Cursor_hl = 'Cursor'
-let g:VM_Insert_hl = 'Cursor'
-" }}}
-" dominikduda/vim_current_word{{{
-highlight! link CurrentWord CocHighlightText
-highlight! link CurrentWordTwins CocHighlightText
-" }}}
-" RRethy/vim-illuminate{{{
-highlight! link illuminatedWord CocHighlightText
-" }}}
-" itchyny/vim-cursorword{{{
-highlight! link CursorWord0 CocHighlightText
-highlight! link CursorWord1 CocHighlightText
-" }}}
-" nathanaelkane/vim-indent-guides{{{
-if get(g:, 'indent_guides_auto_colors', 1) == 0
-  call s:HL('IndentGuidesOdd', s:palette.bg0, s:palette.bg2)
-  call s:HL('IndentGuidesEven', s:palette.bg0, s:palette.bg3)
-endif
-" }}}
-" luochen1990/rainbow{{{
-if !exists('g:rbpt_colorpairs')
-  let g:rbpt_colorpairs = [['blue', s:palette.blue[0]], ['magenta', s:palette.purple[0]],
-        \ ['red', s:palette.red[0]], ['166', s:palette.orange[0]]]
-endif
-
-let g:rainbow_guifgs = [ s:palette.orange[0], s:palette.red[0], s:palette.purple[0], s:palette.blue[0] ]
-let g:rainbow_ctermfgs = [ '166', 'red', 'magenta', 'blue' ]
-
-if !exists('g:rainbow_conf')
-  let g:rainbow_conf = {}
-endif
-if !has_key(g:rainbow_conf, 'guifgs')
-  let g:rainbow_conf['guifgs'] = g:rainbow_guifgs
-endif
-if !has_key(g:rainbow_conf, 'ctermfgs')
-  let g:rainbow_conf['ctermfgs'] = g:rainbow_ctermfgs
-endif
-
-let g:niji_dark_colours = g:rbpt_colorpairs
-let g:niji_light_colours = g:rbpt_colorpairs
-" }}}
-" kshenoy/vim-signature {{{
-highlight! link SignatureMarkText BlueSign
-highlight! link SignatureMarkerText PurpleSign
-" }}}
-" mhinz/vim-startify{{{
-highlight! link StartifyBracket Grey
-highlight! link StartifyFile Fg
-highlight! link StartifyNumber Red
-highlight! link StartifyPath Green
-highlight! link StartifySlash Aqua
-highlight! link StartifySection Blue
-highlight! link StartifyHeader Orange
-highlight! link StartifySpecial Grey
-highlight! link StartifyFooter Grey
-" }}}
-" ap/vim-buftabline{{{
-highlight! link BufTabLineCurrent TabLineSel
-highlight! link BufTabLineActive TabLine
-highlight! link BufTabLineHidden TabLineFill
-highlight! link BufTabLineFill TabLineFill
-" }}}
-" liuchengxu/vim-which-key{{{
-highlight! link WhichKey Red
-highlight! link WhichKeySeperator Green
-highlight! link WhichKeyGroup Yellow
-highlight! link WhichKeyDesc Blue
-highlight! link WhichKeyFloating SignColumn
-" }}}
-" skywind3000/quickmenu.vim{{{
-highlight! link QuickmenuOption Green
-highlight! link QuickmenuNumber Red
-highlight! link QuickmenuBracket Grey
-highlight! link QuickmenuHelp Green
-highlight! link QuickmenuSpecial Purple
-highlight! link QuickmenuHeader Orange
-" }}}
-" mbbill/undotree{{{
-call s:HL('UndotreeSavedBig', s:palette.purple, s:palette.none, 'bold')
-highlight! link UndotreeNode Orange
-highlight! link UndotreeNodeCurrent Red
-highlight! link UndotreeSeq Green
-highlight! link UndotreeNext Blue
-highlight! link UndotreeTimeStamp Grey
-highlight! link UndotreeHead Yellow
-highlight! link UndotreeBranch Yellow
-highlight! link UndotreeCurrent Aqua
-highlight! link UndotreeSavedSmall Purple
-" }}}
-" unblevable/quick-scope {{{
-call s:HL('QuickScopePrimary', s:palette.aqua, s:palette.none, 'underline')
-call s:HL('QuickScopeSecondary', s:palette.blue, s:palette.none, 'underline')
-" }}}
-" }}}
-" Terminal: {{{
-if (has('termguicolors') && &termguicolors) || has('gui_running')
-  " Definition
-  let s:terminal = {
-        \ 'black':    s:palette.fg0,
-        \ 'red':      s:palette.red,
-        \ 'yellow':   s:palette.yellow,
-        \ 'green':    s:palette.green,
-        \ 'cyan':     s:palette.aqua,
-        \ 'blue':     s:palette.blue,
-        \ 'purple':   s:palette.purple,
-        \ 'white':    s:palette.grey
-        \ }
-  " Implementation: {{{
-  if !has('nvim')
-    let g:terminal_ansi_colors = [s:terminal.black[0], s:terminal.red[0], s:terminal.green[0], s:terminal.yellow[0],
-          \ s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0], s:terminal.black[0], s:terminal.red[0],
-          \ s:terminal.green[0], s:terminal.yellow[0], s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0]]
-  else
-    let g:terminal_color_0 = s:terminal.black[0]
-    let g:terminal_color_1 = s:terminal.red[0]
-    let g:terminal_color_2 = s:terminal.green[0]
-    let g:terminal_color_3 = s:terminal.yellow[0]
-    let g:terminal_color_4 = s:terminal.blue[0]
-    let g:terminal_color_5 = s:terminal.purple[0]
-    let g:terminal_color_6 = s:terminal.cyan[0]
-    let g:terminal_color_7 = s:terminal.white[0]
-    let g:terminal_color_8 = s:terminal.black[0]
-    let g:terminal_color_9 = s:terminal.red[0]
-    let g:terminal_color_10 = s:terminal.green[0]
-    let g:terminal_color_11 = s:terminal.yellow[0]
-    let g:terminal_color_12 = s:terminal.blue[0]
-    let g:terminal_color_13 = s:terminal.purple[0]
-    let g:terminal_color_14 = s:terminal.cyan[0]
-    let g:terminal_color_15 = s:terminal.white[0]
-  endif
-  " }}}
-endif
+" ft_end }}}
 " }}}
 
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:
